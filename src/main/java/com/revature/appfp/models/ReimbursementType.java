@@ -1,2 +1,4 @@
-package com.revature.appfp.models;public class ReimbursementType {
+package com.revature.appfp.models;
+
+public class ReimbursementType {
 }

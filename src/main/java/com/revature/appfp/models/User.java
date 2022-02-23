@@ -1,2 +1,4 @@
-package com.revature.appfp.models;public class User {
+package com.revature.appfp.models;
+
+public class User {
 }

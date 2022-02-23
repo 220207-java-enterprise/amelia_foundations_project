@@ -1,2 +1,4 @@
-package com.revature.appfp.models;public class UserRole {
-}
+package com.revature.appfp.models;
+
+public class UserRole {
+        }
