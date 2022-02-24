@@ -1,4 +1,4 @@
-package com.revature.appfp.util;
+package com.revature.app.util;
 
 public class ConnectionFactory {
 }

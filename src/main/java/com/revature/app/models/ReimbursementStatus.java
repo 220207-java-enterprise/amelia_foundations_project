@@ -1,4 +1,4 @@
-package com.revature.appfp.models;
+package com.revature.app.models;
 
 public class ReimbursementStatus {
 }
