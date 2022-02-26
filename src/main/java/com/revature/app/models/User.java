@@ -92,7 +92,7 @@ public class User {
     public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
-
+    //overriding the equals method to compare data
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,12 +107,12 @@ public class User {
                 && Objects.equals(isActive, user.isActive)
                 && Objects.equals(roleId, user.roleId);
     }
-    //creating hash bucket for encryption
+    //overriding hashCode method so we get proper values
     @Override
     public int hashCode() {
         return Objects.hash(userId, username, email, password, givenName, surname, isActive, roleId);
     }
-    //making data readable for client
+    //overriding toString method for client/user readability
     @Override
     public String toString() {
         return "User{" +
