@@ -1,63 +1,40 @@
 package com.revature.app.models;
+//import java superclass Objects
+import java.util.Objects;
 
-/*import java.util.Objects;*/
-
-// POJO = Plain Ol' Java Object
-// Contains NO BUSINESS LOGIC
-// Simple encapsulation of some domain object's states
+// create User class and encapsulating User states
 public class User {
 
-    /*private String id;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private String userId;
     private String username;
+    private String email;
     private String password;
+    private String givenName;
+    private String surname;
+    private Boolean isActive;
+    private String roleId;
 
-    // TODO create a Role enum
-
-    public AppUser() {
-        super();*/
+    public User() {
+        super();
     }
-
-    /*public AppUser(String firstName, String lastName, String email, String username, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    //creating constructor for parameters
+    public User(String userId, String username, String email, String password, String givenName, String surname, Boolean isActive, String roleId) {
+        this.userId = userId;
         this.username = username;
-        this.password = password;
-    }*/
-
-   /* public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
         this.email = email;
+        this.password = password;
+        this.givenName = givenName;
+        this.surname = surname;
+        this.isActive = isActive;
+        this.roleId = roleId;
+    }
+    //getters and setters for encapsulated data
+   public String getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -68,46 +45,86 @@ public class User {
         this.username = username;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }*/
+    }
 
-    /*public String toFileString() {
-        return new StringBuilder(id).append(":")
-                .append(firstName).append(":")
-                .append(lastName).append(":")
-                .append(email).append(":")
-                .append(username).append(":")
-                .append(password).toString();
-    }*/
+    public String getGivenName() {
+        return givenName;
+    }
 
-    /*@Override
+    public void setGivenName(String givenName) {
+        this.givenName = givenName;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AppUser appUser = (AppUser) o;
-        return Objects.equals(id, appUser.id) && Objects.equals(firstName, appUser.firstName) && Objects.equals(lastName, appUser.lastName) && Objects.equals(email, appUser.email) && Objects.equals(username, appUser.username) && Objects.equals(password, appUser.password);
-    }*/
-
-   /* @Override
+        User user = (User) o;
+        return Objects.equals(userId, user.userId)
+                && Objects.equals(username, user.username)
+                && Objects.equals(email, user.email)
+                && Objects.equals(password, user.password)
+                && Objects.equals(givenName, user.givenName)
+                && Objects.equals(surname, user.surname)
+                && Objects.equals(isActive, user.isActive)
+                && Objects.equals(roleId, user.roleId);
+    }
+    //creating hash bucket for encryption
+    @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, username, password);
-    }*/
-
-    /*@Override
+        return Objects.hash(userId, username, email, password, givenName, surname, isActive, roleId);
+    }
+    //making data readable for client
+    @Override
     public String toString() {
-        return "AppUser{" +
-                "id='" + id + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
+        return "User{" +
+                "userId='" + userId + '\'' +
                 ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", givenName='" + givenName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", isActive='" + isActive + '\'' +
+                ", roleId='" + roleId + '\'' +
                 '}';
     }
 
-}*/
+}

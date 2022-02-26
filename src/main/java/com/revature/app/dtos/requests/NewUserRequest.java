@@ -1,4 +1,4 @@
-package com.revature.dtos.requests;
+package com.revature.app.dtos.requests;
 
 /*import com.revature.quizzard.models.AppUser;*/
 

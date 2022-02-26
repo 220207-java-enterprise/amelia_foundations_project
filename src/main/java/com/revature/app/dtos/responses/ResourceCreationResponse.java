@@ -1,4 +1,4 @@
-package com.revature.dtos.responses;
+package com.revature.app.dtos.responses;
 
 public class ResourceCreationResponse {
 }
