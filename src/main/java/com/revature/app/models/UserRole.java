@@ -1,7 +1,7 @@
 package com.revature.app.models;
 
 import java.util.Objects;
-//creating UserRole class and encapsulating UserRole states
+//creating UserRole class and encapsulating states
 public class UserRole {
 
         private String id;
