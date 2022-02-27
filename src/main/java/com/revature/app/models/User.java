@@ -13,12 +13,13 @@ public class User {
     private String surname;
     private Boolean isActive;
     private String roleId;
+    private UserRole role;
 
     public User() {
         super();
     }
     //creating constructor for parameters
-    public User(String userId, String username, String email, String password, String givenName, String surname, Boolean isActive, String roleId) {
+    public User(String userId, String username, String email, String password, String givenName, String surname, Boolean isActive, String roleId, UserRole role) {
         this.userId = userId;
         this.username = username;
         this.email = email;
@@ -27,6 +28,7 @@ public class User {
         this.surname = surname;
         this.isActive = isActive;
         this.roleId = roleId;
+        this.role = role;
     }
     //getters and setters for encapsulated data
    public String getUserId() {
@@ -92,6 +94,14 @@ public class User {
     public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
     //overriding the equals method to compare data
     @Override
     public boolean equals(Object o) {
@@ -105,12 +115,13 @@ public class User {
                 && Objects.equals(givenName, user.givenName)
                 && Objects.equals(surname, user.surname)
                 && Objects.equals(isActive, user.isActive)
-                && Objects.equals(roleId, user.roleId);
+                && Objects.equals(roleId, user.roleId)
+                && Objects.equals(role, user.role);
     }
     //overriding hashCode method so we get proper values
     @Override
     public int hashCode() {
-        return Objects.hash(userId, username, email, password, givenName, surname, isActive, roleId);
+        return Objects.hash(userId, username, email, password, givenName, surname, isActive, roleId ,role);
     }
     //overriding toString method for client/user readability
     @Override
@@ -123,7 +134,8 @@ public class User {
                 ", givenName='" + givenName + '\'' +
                 ", surname='" + surname + '\'' +
                 ", isActive='" + isActive + '\'' +
-                ", roleId='" + roleId + '\'' +
+                ", role_id='" + roleId + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 

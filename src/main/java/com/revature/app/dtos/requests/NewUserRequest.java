@@ -1,41 +1,48 @@
 package com.revature.app.dtos.requests;
 
-/*import com.revature.quizzard.models.AppUser;*/
+import com.revature.app.models.User;
+import com.revature.app.models.UserRole;
 
 public class NewUserRequest {
 
-    private String firstName;
-    private String lastName;
+    private String givenName;
+    private String surname;
     private String email;
     private String username;
     private String password;
+    private Boolean isActive;
+    private String roleId;
+    private UserRole role;
 
     public NewUserRequest() {
         super();
     }
 
-    public NewUserRequest(String firstName, String lastName, String email, String username, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public NewUserRequest(String givenName, String surname, String email, String username, String password, Boolean isActive, String roleId, UserRole role) {
+        this.givenName = givenName;
+        this.surname = surname;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.isActive = isActive;
+        this.roleId = roleId;
+        this.role = role;
     }
 
-    /*public String getFirstName() {
-        return firstName;
+    public String getGivenName() {
+        return givenName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setGivenName(String givenName) {
+        this.givenName = givenName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getEmail() {
@@ -62,18 +69,45 @@ public class NewUserRequest {
         this.password = password;
     }
 
-    public NewUser extractUser() {
-        return new NewUser(firstName, lastName, email, username, password);
-    }*/
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    public User extractUser() {
+        return new User(givenName, surname, email, username, password, isActive, roleId, role);
+    }
 
     @Override
     public String toString() {
         return "NewUserRequest{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "given_name='" + givenName + '\'' +
+                ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", is_active='" + isActive + '\'' +
+                ", role_id='" + roleId + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 

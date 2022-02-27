@@ -1,20 +1,20 @@
 package com.revature.app.util;
 
-/*import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.quizzard.daos.UserDAO;
-import com.revature.quizzard.services.UserService;
-import com.revature.quizzard.servlets.AuthServlet;
-import com.revature.quizzard.servlets.UserServlet;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.app.daos.UserDAO;
+import com.revature.app.services.UserService;
+import com.revature.app.servlets.AuthServlet;
+import com.revature.app.servlets.UserServlet;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;*/
+import javax.servlet.ServletContextListener;
 
-public class ContextLoaderListener {}/*implements ServletContextListener {
+public class ContextLoaderListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("Initializing Quizzard web application");
+        System.out.println("Initializing ERS web application");
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -28,11 +28,11 @@ public class ContextLoaderListener {}/*implements ServletContextListener {
         context.addServlet("UserServlet", userServlet).addMapping("/users/*");
         context.addServlet("AuthServlet", authServlet).addMapping("/auth");
 
-    }*/
-
-    /*@Override
-    public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("Shutting down Quizzard web application");
     }
 
-}*/
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        System.out.println("Shutting down ERS web application");
+    }
+
+}

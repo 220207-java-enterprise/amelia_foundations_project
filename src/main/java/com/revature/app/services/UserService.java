@@ -1,28 +1,42 @@
 package com.revature.app.services;
 
-/*import com.revature.quizzard.dtos.NewUserRequest;
-import com.revature.quizzard.models.AppUser;
-import com.revature.quizzard.daos.UserDAO;
-import com.revature.quizzard.util.exceptions.AuthenticationException;
-import com.revature.quizzard.util.exceptions.InvalidRequestException;
-import com.revature.quizzard.util.exceptions.ResourceConflictException;
-import com.revature.quizzard.util.exceptions.ResourcePersistenceException;
+import com.revature.app.dtos.requests.LoginRequest;
+import com.revature.app.dtos.requests.NewUserRequest;
+import com.revature.app.dtos.responses.UserResponse;
+import com.revature.app.models.User;
+import com.revature.app.daos.UserDAO;
+import com.revature.app.models.UserRole;
+import com.revature.app.util.exceptions.AuthenticationException;
+import com.revature.app.util.exceptions.InvalidRequestException;
+import com.revature.app.util.exceptions.ResourceConflictException;
 
 import java.io.IOException;
-import java.util.UUID;*/
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class UserService {
 
-    /*private UserDAO userDAO; // a dependency of UserService
+    private UserDAO userDAO; // a dependency of UserService
 
     // Constructor injection
     public UserService(UserDAO userDAO) {
-        this.userDAO = userDAO;*/
+        this.userDAO = userDAO;
     }
 
-    /*public AppUser register(NewUserRequest newUserRequest) throws IOException {
+    public List<UserResponse> getAllUsers() {
 
-        AppUser newUser = newUserRequest.extractUser();
+        // Java 8+ mapping logic (with Streams)
+        return userDAO.getAll()
+                .stream()
+                .map(UserResponse::new)
+                .collect(Collectors.toList());
+    }
+
+    public User register(NewUserRequest newUserRequest) throws IOException {
+
+        User newUser = newUserRequest.extractUser();
 
         if (!isUserValid(newUser)) {
             throw new InvalidRequestException("Bad registration details given.");
@@ -40,13 +54,17 @@ public class UserService {
 
         // TODO encrypt provided password before storing in the database
 
-        newUser.setId(UUID.randomUUID().toString());
+        newUser.setUserId(UUID.randomUUID().toString());
+        newUser.setRole(new UserRole("7c3521f5-ff75-4e8a-9913-01d15ee4dc97", "BASIC_USER")); // All newly registered users start as BASIC_USER
         userDAO.save(newUser);
 
         return newUser;
-    }*/
+    }
 
-    /*public AppUser login(String username, String password) {
+    public User login(LoginRequest loginRequest) {
+
+        String username = loginRequest.getUsername();
+        String password = loginRequest.getPassword();
 
         if (!isUsernameValid(username) || !isPasswordValid(password)) {
             throw new InvalidRequestException("Invalid credentials provided!");
@@ -54,7 +72,7 @@ public class UserService {
 
         // TODO encrypt provided password (assumes password encryption is in place) to see if it matches what is in the DB
 
-        AppUser authUser = userDAO.findUserByUsernameAndPassword(username, password);
+        User authUser = userDAO.findUserByUsernameAndPassword(username, password);
 
         if (authUser == null) {
             throw new AuthenticationException();
@@ -62,32 +80,32 @@ public class UserService {
 
         return authUser;
 
-    }*/
+    }
 
-    /*private boolean isUserValid(AppUser appUser) {
+    private boolean isUserValid(User user) {
 
         // First name and last name are not just empty strings or filled with whitespace
-        if (appUser.getFirstName().trim().equals("") || appUser.getLastName().trim().equals("")) {
+        if (user.getGivenName().trim().equals("") || user.getSurname().trim().equals("")) {
             return false;
         }
 
         // Usernames must be a minimum of 8 and a max of 25 characters in length, and only contain alphanumeric characters.
-        if (!isUsernameValid(appUser.getUsername())) {
+        if (!isUsernameValid(user.getUsername())) {
             return false;
         }
 
         // Passwords require a minimum eight characters, at least one uppercase letter, one lowercase
         // letter, one number and one special character
-        if (!isPasswordValid(appUser.getPassword())) {
+        if (!isPasswordValid(user.getPassword())) {
             return false;
         }
 
         // Basic email validation
-        return isEmailValid(appUser.getEmail());
+        return isEmailValid(user.getEmail());
 
-    }*/
+    }
 
-    /*public boolean isEmailValid(String email) {
+    public boolean isEmailValid(String email) {
         if (email == null) return false;
         return email.matches("^[^@\\s]+@[^@\\s.]+\\.[^@.\\s]+$");
     }
@@ -105,8 +123,8 @@ public class UserService {
         return userDAO.findUserByUsername(username) == null;
     }
 
-    public boolean isEmailAvailable(String username) {
-        return userDAO.findUserByUsername(username) == null;
+    public boolean isEmailAvailable(String email) {
+        return userDAO.findUserByEmail(email) == null;
     }
 
-}*/
+}
