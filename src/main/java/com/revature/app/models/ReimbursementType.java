@@ -1,7 +1,7 @@
 package com.revature.app.models;
 
 import java.util.Objects;
-//creating ReimbursementStatus class and encapsulating states
+//creating ReimbursementType class and encapsulating states
 public class ReimbursementType {
 
     private String typeId;
@@ -10,6 +10,7 @@ public class ReimbursementType {
     public ReimbursementType() {
         super();
     }
+
     //creating constructor for parameters
     public ReimbursementType(String typeId, String typeReimb) {
         this.typeId = typeId;
@@ -31,6 +32,7 @@ public class ReimbursementType {
     public void setStatus(String typeReimb) {
         this.typeReimb = typeReimb;
     }
+
     //overriding the equals method to compare data
     @Override
     public boolean equals(Object o) {
@@ -44,6 +46,7 @@ public class ReimbursementType {
     public int hashCode() {
         return Objects.hash(typeId, typeReimb);
     }
+
     //overriding toString method for client/user readability
     @Override
     public String toString() {
