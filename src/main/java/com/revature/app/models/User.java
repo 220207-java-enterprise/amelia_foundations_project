@@ -19,7 +19,7 @@ public class User {
         super();
     }
     //creating constructor for parameters
-    public User(String userId, String username, String email, String password, String givenName, String surname, Boolean isActive, String roleId, UserRole role) {
+    public User(String userId, String username, String email, String password, String givenName, Boolean isActive, String roleId, UserRole role) {
         this.userId = userId;
         this.username = username;
         this.email = email;
