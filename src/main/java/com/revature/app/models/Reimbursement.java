@@ -40,7 +40,7 @@ public class Reimbursement {
         return this.reimbId;
     }
 
-    public void setReimbId(String usereimbIdrId) {
+    public void setReimbId(String reimbId) {
         this.reimbId = reimbId;
     }
 
