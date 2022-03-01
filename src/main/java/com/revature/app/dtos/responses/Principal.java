@@ -1,7 +1,6 @@
 package com.revature.app.dtos.responses;
 
 import com.revature.app.models.User;
-import com.revature.app.models.UserRole;
 
 public class Principal {
 
@@ -16,7 +15,7 @@ public class Principal {
     public Principal(User user) {
         this.userId = user.getUserId();
         this.username = user.getUsername();
-        this.role = user.getRole().getRoleName();
+        this.role = user.getRole().getRole();
     }
 
     public String getUserId() {

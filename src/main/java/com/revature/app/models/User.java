@@ -102,7 +102,7 @@ public class User {
     public void setRole(UserRole role) {
         this.role = role;
     }
-    //overriding the equals method to compare data
+    //overriding the equals method to compare data - is this necessary?
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

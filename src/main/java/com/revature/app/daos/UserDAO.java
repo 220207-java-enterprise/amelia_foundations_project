@@ -13,12 +13,13 @@ import java.util.List;
 
 // TODO attempt to centralize exception handling in service layer
 public class UserDAO implements CrudDAO<User> {
+    private List<User> user = new ArrayList<>();
 
     private final String rootSelect = "SELECT " +
-            "au.user_id, au.username, au.email, au.PASSWORD, au.given_name, au.surname, au.is_active, ur.id " +
+            "au.user_id, au.username, au.email, au.PASSWORD, au.given_name, au.surname, au.is_active, ur.role_id " +
             "FROM user au " +
             "JOIN user_role ur " +
-            "ON au.role_name = ur.id ";
+            "ON au.role = ur.role_id ";
 
     public User findUserByUsername(String username) {
 
@@ -40,7 +41,7 @@ public class UserDAO implements CrudDAO<User> {
                 user.setSurname(rs.getString("surname"));
                 user.setIsActive(rs.getBoolean("is_active"));
                 user.setRoleId(rs.getString("role_id"));
-                user.setRole(new UserRole(rs.getString("role"), rs.getString("role_name")));
+                user.setRole(new UserRole(rs.getString("role"), rs.getString("role")));
 
             }
 
@@ -71,7 +72,7 @@ public class UserDAO implements CrudDAO<User> {
                 user.setSurname(rs.getString("surname"));
                 user.setIsActive(rs.getBoolean("is_active"));
                 user.setRoleId(rs.getString("role_id"));
-                user.setRole(new UserRole(rs.getString("role"), rs.getString("role_name")));
+                user.setRole(new UserRole(rs.getString("role"), rs.getString("role")));
 
             }
 
@@ -104,7 +105,7 @@ public class UserDAO implements CrudDAO<User> {
                 authUser.setSurname(rs.getString("surname"));
                 authUser.setIsActive(rs.getBoolean("is_active"));
                 authUser.setRoleId(rs.getString("role_id"));
-                authUser.setRole(new UserRole(rs.getString("role"), rs.getString("role_name")));
+                authUser.setRole(new UserRole(rs.getString("role"), rs.getString("role")));
 
             }
 
@@ -131,8 +132,8 @@ public class UserDAO implements CrudDAO<User> {
             pstmt.setBoolean(7, newUser.getIsActive());
             pstmt.setString(8, newUser.getSurname());
             pstmt.setString(9, newUser.getRoleId());
-            pstmt.setString(7, newUser.getRole().getId());
-                                                                //fix issue above
+            pstmt.setString(7, newUser.getRole().getRoleId());
+
             int rowsInserted = pstmt.executeUpdate();
             if (rowsInserted != 1) {
                 conn.rollback();
@@ -167,7 +168,7 @@ public class UserDAO implements CrudDAO<User> {
                 user.setSurname(rs.getString("surname"));
                 user.setIsActive(rs.getBoolean("is_active"));
                 user.setRoleId(rs.getString("role_id"));
-                user.setRole(new UserRole(rs.getString("role"), rs.getString("role_name")));
+                user.setRole(new UserRole(rs.getString("role"), rs.getString("role")));
 
             }
 
@@ -197,7 +198,7 @@ public class UserDAO implements CrudDAO<User> {
                 user.setSurname(rs.getString("surname"));
                 user.setIsActive(rs.getBoolean("is_active"));
                 user.setRoleId(rs.getString("role_id"));
-                user.setRole(new UserRole(rs.getString("role"), rs.getString("role_name")));
+                user.setRole(new UserRole(rs.getString("role"), rs.getString("role")));
                 users.add(user);                        //fix issue above
             }
         } catch (SQLException e) {

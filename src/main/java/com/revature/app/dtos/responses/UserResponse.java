@@ -29,7 +29,7 @@ public class UserResponse {
         this.surname = user.getSurname();
         this.isActive = user.getIsActive();
         this.roleId = user.getRoleId();
-        this.role = user.getRole().getRoleName();
+        this.role = user.getRole().getRole();
 
     }
 

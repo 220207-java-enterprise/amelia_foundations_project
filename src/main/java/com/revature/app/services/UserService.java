@@ -5,6 +5,7 @@ import com.revature.app.dtos.requests.NewUserRequest;
 import com.revature.app.dtos.responses.UserResponse;
 import com.revature.app.models.User;
 import com.revature.app.daos.UserDAO;
+import com.revature.app.daos.CrudDAO;
 import com.revature.app.models.UserRole;
 import com.revature.app.util.exceptions.AuthenticationException;
 import com.revature.app.util.exceptions.InvalidRequestException;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 
 public class UserService {
 
-    private UserDAO userDAO; // a dependency of UserService
+    private CrudDAO<User> userDAO; // a dependency of UserService
 
     // Constructor injection
     public UserService(UserDAO userDAO) {
