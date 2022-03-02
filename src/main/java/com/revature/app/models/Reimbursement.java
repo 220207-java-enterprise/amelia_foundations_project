@@ -3,7 +3,7 @@ package com.revature.app.models;
 import java.sql.Timestamp;
 
 // create User class and encapsulating Reimbursement states
-public class Reimbursement {
+public class Reimbursements {
 
     private String reimbId;
     private int amount;
@@ -17,11 +17,11 @@ public class Reimbursement {
     private String statusId;
     private String typeId;
 
-    public Reimbursement() {
+    public Reimbursements() {
         super();
     }
     //creating constructor for parameters
-    public Reimbursement(String reimbId, int amount, Timestamp submitted, Timestamp resolved, String description, Byte receipt, String paymentId, String authorId, String resolverId, String statusId, String typeId) {
+    public Reimbursements(String reimbId, int amount, Timestamp submitted, Timestamp resolved, String description, Byte receipt, String paymentId, String authorId, String resolverId, String statusId, String typeId) {
         this.reimbId = reimbId;
         this.amount = amount;
         this.submitted = submitted;

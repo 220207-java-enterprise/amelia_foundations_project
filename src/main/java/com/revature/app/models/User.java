@@ -3,7 +3,7 @@ package com.revature.app.models;
 import java.util.Objects;
 
 // create User class and encapsulating User states
-public class User {
+public class Users {
 
     private String userId;
     private String username;
@@ -13,13 +13,13 @@ public class User {
     private String surname;
     private Boolean isActive;
     private String roleId;
-    private UserRole role;
+    private UserRoles role;
 
-    public User() {
+    public Users() {
         super();
     }
     //creating constructor for parameters
-    public User(String userId, String username, String email, String password, String givenName, Boolean isActive, String roleId, UserRole role) {
+    public Users(String userId, String username, String email, String password, String givenName, Boolean isActive, String roleId, UserRoles role) {
         this.userId = userId;
         this.username = username;
         this.email = email;
@@ -95,11 +95,11 @@ public class User {
         this.roleId = roleId;
     }
 
-    public UserRole getRole() {
+    public UserRoles getRole() {
         return role;
     }
 
-    public void setRole(UserRole role) {
+    public void setRole(UserRoles role) {
         this.role = role;
     }
     //overriding the equals method to compare data - is this necessary?
@@ -107,16 +107,16 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(userId, user.userId)
-                && Objects.equals(username, user.username)
-                && Objects.equals(email, user.email)
-                && Objects.equals(password, user.password)
-                && Objects.equals(givenName, user.givenName)
-                && Objects.equals(surname, user.surname)
-                && Objects.equals(isActive, user.isActive)
-                && Objects.equals(roleId, user.roleId)
-                && Objects.equals(role, user.role);
+        Users users = (Users) o;
+        return Objects.equals(userId, users.userId)
+                && Objects.equals(username, users.username)
+                && Objects.equals(email, users.email)
+                && Objects.equals(password, users.password)
+                && Objects.equals(givenName, users.givenName)
+                && Objects.equals(surname, users.surname)
+                && Objects.equals(isActive, users.isActive)
+                && Objects.equals(roleId, users.roleId)
+                && Objects.equals(role, users.role);
     }
     //overriding hashCode method so we get proper values
     @Override
