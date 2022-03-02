@@ -1,16 +1,16 @@
 package com.revature.app.models;
 
 //creating ReimbursementStatus class and encapsulating states
-public class ReimbursementStatus {
+public class ReimbursementStatuses {
 
     private String statusId;
     private String status;
 
-    public ReimbursementStatus() {
+    public ReimbursementStatuses() {
         super();
     }
     //creating constructor for parameters
-    public ReimbursementStatus(String statusId, String status) {
+    public ReimbursementStatuses(String statusId, String status) {
         this.statusId = statusId;
         this.status = status;
     }

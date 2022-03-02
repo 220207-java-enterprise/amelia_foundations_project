@@ -12,7 +12,6 @@ import com.revature.app.util.exceptions.InvalidRequestException;
 import com.revature.app.util.exceptions.ResourceConflictException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -37,14 +36,14 @@ public class UserService {
 
     public User register(NewUserRequest newUserRequest) throws IOException {
 
-        User newUser = newUserRequest.extractUser();
+        User newUsers = newUserRequest.extractUser();
 
-        if (!isUserValid(newUser)) {
+        if (!isUserValid(newUsers)) {
             throw new InvalidRequestException("Bad registration details given.");
         }
 
-        boolean usernameAvailable = isUsernameAvailable(newUser.getUsername());
-        boolean emailAvailable = isEmailAvailable(newUser.getEmail());
+        boolean usernameAvailable = isUsernameAvailable(newUsers.getUsername());
+        boolean emailAvailable = isEmailAvailable(newUsers.getEmail());
 
         if (!usernameAvailable || !emailAvailable) {
             String msg = "The values provided for the following fields are already taken by other users: ";
@@ -55,11 +54,11 @@ public class UserService {
 
         // TODO encrypt provided password before storing in the database
 
-        newUser.setUserId(UUID.randomUUID().toString());
-        newUser.setRole(new UserRole("7c3521f5-ff75-4e8a-9913-01d15ee4dc97", "BASIC_USER")); // All newly registered users start as BASIC_USER
-        userDAO.save(newUser);
+        newUsers.setUserId(UUID.randomUUID().toString());
+        newUsers.setRole(new UserRole("7c3521f5-ff75-4e8a-9913-01d15ee4dc97", "BASIC_USER")); // All newly registered users start as BASIC_USER
+        userDAO.save(newUsers);
 
-        return newUser;
+        return newUsers;
     }
 
     public User login(LoginRequest loginRequest) {
@@ -83,26 +82,26 @@ public class UserService {
 
     }
 
-    private boolean isUserValid(User user) {
+    private boolean isUserValid(User users) {
 
         // First name and last name are not just empty strings or filled with whitespace
-        if (user.getGivenName().trim().equals("") || user.getSurname().trim().equals("")) {
+        if (users.getGivenName().trim().equals("") || users.getSurname().trim().equals("")) {
             return false;
         }
 
         // Usernames must be a minimum of 8 and a max of 25 characters in length, and only contain alphanumeric characters.
-        if (!isUsernameValid(user.getUsername())) {
+        if (!isUsernameValid(users.getUsername())) {
             return false;
         }
 
         // Passwords require a minimum eight characters, at least one uppercase letter, one lowercase
         // letter, one number and one special character
-        if (!isPasswordValid(user.getPassword())) {
+        if (!isPasswordValid(users.getPassword())) {
             return false;
         }
 
         // Basic email validation
-        return isEmailValid(user.getEmail());
+        return isEmailValid(users.getEmail());
 
     }
 

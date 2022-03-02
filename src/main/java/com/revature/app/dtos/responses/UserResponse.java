@@ -1,7 +1,6 @@
 package com.revature.app.dtos.responses;
 
 import com.revature.app.models.User;
-import com.revature.app.models.UserRole;
 
 public class UserResponse {
 
@@ -20,16 +19,16 @@ public class UserResponse {
         super();
     }
 
-    public UserResponse(User user) {
-        this.userId = user.getUserId();
-        this.username = user.getUsername();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.givenName = user.getGivenName();
-        this.surname = user.getSurname();
-        this.isActive = user.getIsActive();
-        this.roleId = user.getRoleId();
-        this.role = user.getRole().getRole();
+    public UserResponse(User users) {
+        this.userId = users.getUserId();
+        this.username = users.getUsername();
+        this.email = users.getEmail();
+        this.password = users.getPassword();
+        this.givenName = users.getGivenName();
+        this.surname = users.getSurname();
+        this.isActive = users.getIsActive();
+        this.roleId = users.getRoleId();
+        this.role = users.getRole().getRole();
 
     }
 

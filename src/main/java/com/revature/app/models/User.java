@@ -3,7 +3,7 @@ package com.revature.app.models;
 import java.util.Objects;
 
 // create User class and encapsulating User states
-public class Users {
+public class User {
 
     private String userId;
     private String username;
@@ -13,13 +13,13 @@ public class Users {
     private String surname;
     private Boolean isActive;
     private String roleId;
-    private UserRoles role;
+    private UserRole role;
 
-    public Users() {
+    public User() {
         super();
     }
     //creating constructor for parameters
-    public Users(String userId, String username, String email, String password, String givenName, Boolean isActive, String roleId, UserRoles role) {
+    public User(String userId, String username, String email, String password, String givenName, Boolean isActive, String roleId, UserRole role) {
         this.userId = userId;
         this.username = username;
         this.email = email;
@@ -95,11 +95,11 @@ public class Users {
         this.roleId = roleId;
     }
 
-    public UserRoles getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(UserRoles role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
     //overriding the equals method to compare data - is this necessary?
@@ -107,7 +107,7 @@ public class Users {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Users users = (Users) o;
+        User users = (User) o;
         return Objects.equals(userId, users.userId)
                 && Objects.equals(username, users.username)
                 && Objects.equals(email, users.email)

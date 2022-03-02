@@ -1,15 +1,15 @@
 package com.revature.app.models;
 
 //creating UserRole class and encapsulating states
-public class UserRoles {
+public class UserRole {
         private String roleId;
         private String role;
 
-        public UserRoles() {
+        public UserRole() {
                 super();
         }
         //creating constructor for parameters
-        public UserRoles(String roleId, String role) {
+        public UserRole(String roleId, String role) {
                 this.roleId = roleId;
                 this.role = role;
         }

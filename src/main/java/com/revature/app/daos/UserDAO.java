@@ -6,7 +6,6 @@ import com.revature.app.util.ConnectionFactory;
 import com.revature.app.util.exceptions.DataSourceException;
 import com.revature.app.util.exceptions.ResourcePersistenceException;
 
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +16,14 @@ public class UserDAO implements CrudDAO<User> {
 
     private final String rootSelect = "SELECT " +
             "au.user_id, au.username, au.email, au.PASSWORD, au.given_name, au.surname, au.is_active, ur.role_id " +
-            "FROM user au " +
+            "FROM users au " +
             "JOIN user_role ur " +
             "ON au.role = ur.role_id ";
+    private User newUser;
+
+    public UserDAO(User newUser) {
+        this.newUser = newUser;
+    }
 
     public User findUserByUsername(String username) {
 
@@ -117,7 +121,7 @@ public class UserDAO implements CrudDAO<User> {
     }
 
     @Override
-    public void save(User newUser) {
+    public void save(User newUsers) {
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
@@ -132,7 +136,7 @@ public class UserDAO implements CrudDAO<User> {
             pstmt.setBoolean(7, newUser.getIsActive());
             pstmt.setString(8, newUser.getSurname());
             pstmt.setString(9, newUser.getRoleId());
-            pstmt.setString(7, newUser.getRole().getRoleId());
+            pstmt.setString(10, newUser.getRole().getRoleId());
 
             int rowsInserted = pstmt.executeUpdate();
             if (rowsInserted != 1) {
@@ -222,14 +226,14 @@ public class UserDAO implements CrudDAO<User> {
                     "is_active = ?, " +
                     "role_id = ? " +
                     "WHERE user_id = ?");
-            pstmt.setString(6, updatedUser.getUserId());
-            pstmt.setString(1, updatedUser.getUsername());
-            pstmt.setString(2, updatedUser.getEmail());
-            pstmt.setString(3, updatedUser.getPassword());
-            pstmt.setString(4, updatedUser.getGivenName());
-            pstmt.setString(5, updatedUser.getSurname());
-            pstmt.setBoolean(4, updatedUser.getIsActive());
-            pstmt.setString(5, updatedUser.getRoleId());
+            pstmt.setString(1, updatedUser.getUserId());
+            pstmt.setString(2, updatedUser.getUsername());
+            pstmt.setString(3, updatedUser.getEmail());
+            pstmt.setString(4, updatedUser.getPassword());
+            pstmt.setString(5, updatedUser.getGivenName());
+            pstmt.setString(6, updatedUser.getSurname());
+            pstmt.setBoolean(7, updatedUser.getIsActive());
+            pstmt.setString(8, updatedUser.getRoleId());
 
             // TODO allow role to be updated as well
 

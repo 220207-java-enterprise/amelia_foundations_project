@@ -1,16 +1,16 @@
 package com.revature.app.models;
 
 //creating ReimbursementType class and encapsulating states
-public class ReimbursementType {
+public class ReimbursementTypes {
     private String typeId;
     private String type;
 
-    public ReimbursementType() {
+    public ReimbursementTypes() {
         super();
     }
 
     //creating constructor for parameters
-    public ReimbursementType(String typeId, String type) {
+    public ReimbursementTypes(String typeId, String type) {
         this.typeId = typeId;
         this.type = type;
     }

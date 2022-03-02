@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.app.dtos.requests.LoginRequest;
 import com.revature.app.dtos.responses.Principal;
+import com.revature.app.services.TokenService;
 import com.revature.app.services.UserService;
 import com.revature.app.util.exceptions.AuthenticationException;
 import com.revature.app.util.exceptions.InvalidRequestException;
@@ -21,7 +22,7 @@ public class AuthServlet extends HttpServlet {
     private final UserService userService;
     private final ObjectMapper mapper;
 
-    public AuthServlet(UserService userService, ObjectMapper mapper) {
+    public AuthServlet(TokenService tokenService, UserService userService, ObjectMapper mapper) {
         this.userService = userService;
         this.mapper = mapper;
     }

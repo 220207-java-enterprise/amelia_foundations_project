@@ -3,7 +3,7 @@ package com.revature.app.models;
 import java.sql.Timestamp;
 
 // create User class and encapsulating Reimbursement states
-public class Reimbursements {
+public class Reimbursement {
 
     private String reimbId;
     private int amount;
@@ -17,11 +17,11 @@ public class Reimbursements {
     private String statusId;
     private String typeId;
 
-    public Reimbursements() {
+    public Reimbursement() {
         super();
     }
     //creating constructor for parameters
-    public Reimbursements(String reimbId, int amount, Timestamp submitted, Timestamp resolved, String description, Byte receipt, String paymentId, String authorId, String resolverId, String statusId, String typeId) {
+    public Reimbursement(String reimbId, int amount, Timestamp submitted, Timestamp resolved, String description, Byte receipt, String paymentId, String authorId, String resolverId, String statusId, String typeId) {
         this.reimbId = reimbId;
         this.amount = amount;
         this.submitted = submitted;
@@ -83,11 +83,11 @@ public class Reimbursements {
         this.receipt = receipt;
     }
 
-    public String getPayment() {
+    public String getPaymentId() {
         return paymentId;
     }
 
-    public void setPayment(String paymentId) {
+    public void setPaymentId(String paymentId) {
         this.paymentId = paymentId;
     }
 
@@ -111,7 +111,7 @@ public class Reimbursements {
         return statusId;
     }
 
-    public void setStatusId(String statusId) {
+    public void setStatus(String statusId, String status) {
         this.statusId = statusId;
     }
 
@@ -119,7 +119,7 @@ public class Reimbursements {
         return typeId;
     }
 
-    public void setTypeId(String typeId) {
+    public void setType(String typeId, String type) {
         this.typeId = typeId;
     }
 
@@ -138,4 +138,5 @@ public class Reimbursements {
                 ", status_id='" + statusId + '\'' +
                 ", type_id='" + typeId + '\'' + '}';
     }
+
 }
