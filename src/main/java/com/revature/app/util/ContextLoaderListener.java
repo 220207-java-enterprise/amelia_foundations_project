@@ -25,7 +25,7 @@ public class ContextLoaderListener implements ServletContextListener {
         JwtConfig jwtConfig = new JwtConfig();
         TokenService tokenService = new TokenService(jwtConfig);
 
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO(); //what goes here? Related to UserDAO?
         UserService userService = new UserService(userDAO);
         UserServlet userServlet = new UserServlet(tokenService, userService, mapper);
         AuthServlet authServlet = new AuthServlet(tokenService, userService, mapper);
@@ -39,7 +39,7 @@ public class ContextLoaderListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        logger.debug("Shutting down Quizzard web application");
+        logger.debug("Shutting down ERS app web application");
     }
 
 }

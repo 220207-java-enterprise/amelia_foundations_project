@@ -8,6 +8,11 @@ public interface CrudDAO<T> {
     T getByUserId(String userId);
     List<T> getAll();
     void update(T updatedObject);
-    void deleteByUserId(T newObject);
+    void deleteByUserId(String userId);
 
+    T findUserByUsernameAndPassword(String username, String password);
+
+    T findUserByUsername(String username);
+
+    T findUserByEmail(String email);
 }

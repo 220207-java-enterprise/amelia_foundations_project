@@ -21,10 +21,6 @@ public class UserDAO implements CrudDAO<User> {
             "ON au.role = ur.role_id ";
     private User newUser;
 
-    public UserDAO(User newUser) {
-        this.newUser = newUser;
-    }
-
     public User findUserByUsername(String username) {
 
         User user = null;
@@ -234,8 +230,6 @@ public class UserDAO implements CrudDAO<User> {
             pstmt.setString(6, updatedUser.getSurname());
             pstmt.setBoolean(7, updatedUser.getIsActive());
             pstmt.setString(8, updatedUser.getRoleId());
-
-            // TODO allow role to be updated as well
 
             int rowsInserted = pstmt.executeUpdate();
             if (rowsInserted != 1) {

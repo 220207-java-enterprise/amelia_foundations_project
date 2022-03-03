@@ -111,9 +111,17 @@ public class Reimbursement {
         return statusId;
     }
 
-    public void setStatus(String statusId, String status) {
+    public void setStatusId(String statusId) {
         this.statusId = statusId;
     }
+
+    /*public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status, String statusId) {
+        this.status = status;
+    }*/
 
     public String getTypeId() {
         return typeId;

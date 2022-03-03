@@ -11,7 +11,6 @@ import com.revature.app.util.exceptions.AuthenticationException;
 import com.revature.app.util.exceptions.InvalidRequestException;
 import com.revature.app.util.exceptions.ResourceConflictException;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -34,16 +33,16 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public User register(NewUserRequest newUserRequest) throws IOException {
+    public User register(NewUserRequest newUserRequest) {
 
-        User newUsers = newUserRequest.extractUser();
+        User newUser = newUserRequest.extractUser();
 
-        if (!isUserValid(newUsers)) {
+        if (!isUserValid(newUser)) {
             throw new InvalidRequestException("Bad registration details given.");
         }
 
-        boolean usernameAvailable = isUsernameAvailable(newUsers.getUsername());
-        boolean emailAvailable = isEmailAvailable(newUsers.getEmail());
+        boolean usernameAvailable = isUsernameAvailable(newUser.getUsername());
+        boolean emailAvailable = isEmailAvailable(newUser.getEmail());
 
         if (!usernameAvailable || !emailAvailable) {
             String msg = "The values provided for the following fields are already taken by other users: ";
@@ -54,11 +53,11 @@ public class UserService {
 
         // TODO encrypt provided password before storing in the database
 
-        newUsers.setUserId(UUID.randomUUID().toString());
-        newUsers.setRole(new UserRole("7c3521f5-ff75-4e8a-9913-01d15ee4dc97", "BASIC_USER")); // All newly registered users start as BASIC_USER
-        userDAO.save(newUsers);
+        newUser.setUserId(UUID.randomUUID().toString());
+        newUser.setRole(new UserRole("003", "EMPLOYEE")); // All newly registered users start as BASIC_USER
+        userDAO.save(newUser);
 
-        return newUsers;
+        return newUser;
     }
 
     public User login(LoginRequest loginRequest) {
@@ -120,10 +119,12 @@ public class UserService {
     }
 
     public boolean isUsernameAvailable(String username) {
+        if (username == null || !isUsernameValid(username)) return false;
         return userDAO.findUserByUsername(username) == null;
     }
 
     public boolean isEmailAvailable(String email) {
+        if (email == null || !isEmailValid(email)) return false;
         return userDAO.findUserByEmail(email) == null;
     }
 

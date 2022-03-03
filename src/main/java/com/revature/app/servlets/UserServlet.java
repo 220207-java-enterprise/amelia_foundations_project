@@ -74,7 +74,7 @@ public class UserServlet extends HttpServlet {
             return;
         }
 
-        List<AppUserResponse> users = userService.getAllUsers();
+        List<UserResponse> users = userService.getAllUsers();
         String payload = mapper.writeValueAsString(users);
         resp.setContentType("application/json");
         resp.getWriter().write(payload);
@@ -92,10 +92,10 @@ public class UserServlet extends HttpServlet {
         try {
 
             NewUserRequest newUserRequest = mapper.readValue(req.getInputStream(), NewUserRequest.class);
-            AppUser newUser = userService.register(newUserRequest);
+            User newUser = userService.register(newUserRequest);
             resp.setStatus(201); // CREATED
             resp.setContentType("application/json");
-            String payload = mapper.writeValueAsString(new ResourceCreationResponse(newUser.getId()));
+            String payload = mapper.writeValueAsString(new ResourceCreationResponse(newUser.getUserId()));
             respWriter.write(payload);
 
         } catch (InvalidRequestException | DatabindException e) {
