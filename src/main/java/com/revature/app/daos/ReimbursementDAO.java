@@ -23,7 +23,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
             "JOIN reimbursement_types " +
             "ON reimbursements.type_id=reimbursement_types.type_id ";
 
-    private Reimbursement newReimbursement;
+    public Reimbursement newReimbursement;
 
     public ReimbursementDAO(Reimbursement newReimbursement) {
         this.newReimbursement = newReimbursement;
@@ -37,7 +37,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
             conn.setAutoCommit(false);
             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO reimbursement_types VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)");
             pstmt.setString(1, newReimbursement.getReimbId());
-            pstmt.setInt(2, newReimbursement.getAmount());
+            pstmt.setDouble(2, newReimbursement.getAmount());
             pstmt.setTimestamp(3, newReimbursement.getSubmitted());
             pstmt.setTimestamp(4, newReimbursement.getResolved());
             pstmt.setString(5, newReimbursement.getDescription());
@@ -62,13 +62,13 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
     }
 
     @Override
-    public Reimbursement getByUserId(String userId) {
+    public Reimbursement getById(String id) {
         Reimbursement newReimbursement = null;
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
             PreparedStatement pstmt = conn.prepareStatement(rootSelect + "WHERE reimb_id = ?");
-            pstmt.setString(1, userId);
+            pstmt.setString(1, id);
 
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -82,8 +82,8 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
                 newReimbursement.setPaymentId(rs.getString("payment_id"));
                 newReimbursement.setAuthorId(rs.getString("author_id"));
                 newReimbursement.setResolverId(rs.getString("resolver_id"));
-                //newReimbursement.setStatus(rs.getString("status_id"), rs.getString("status"));
-                newReimbursement.setType(rs.getString("type_id"), rs.getString("type"));
+                newReimbursement.setStatusId(rs.getString("status_id"));
+                newReimbursement.setTypeId(rs.getString("type_id"));
             }
 
         } catch (SQLException e) {
@@ -112,8 +112,8 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
                 newReimbursement.setPaymentId(rs.getString("payment_id"));
                 newReimbursement.setAuthorId(rs.getString("author_id"));
                 newReimbursement.setResolverId(rs.getString("resolver_id"));
-                //newReimbursement.setStatus(rs.getString("status_id"), rs.getString("status"));
-                newReimbursement.setType(rs.getString("type_id"), rs.getString("type"));                 //fix issue above
+                newReimbursement.setStatusId(rs.getString("status_id"));
+                newReimbursement.setTypeId(rs.getString("type_id"));                 //fix issue above
             }
         } catch (SQLException e) {
             throw new DataSourceException(e);
@@ -141,7 +141,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
                     "type_id = ? " +
                     "WHERE user_id = ?");
             pstmt.setString(1, updatedReimbursement.getReimbId());
-            pstmt.setInt(2, updatedReimbursement.getAmount());
+            pstmt.setDouble(2, updatedReimbursement.getAmount());
             pstmt.setTimestamp(3, updatedReimbursement.getSubmitted());
             pstmt.setTimestamp(4, updatedReimbursement.getResolved());
             pstmt.setString(5, updatedReimbursement.getDescription());
@@ -163,25 +163,10 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
             throw new DataSourceException(e);
         }
     }
-//soft delete
-    @Override
-    public void deleteByUserId(String userId) {
-
-    }
 
     @Override
-    public Reimbursement findUserByUsernameAndPassword(String username, String password) {
-        return null;
-    }
+    public void deleteById(String id) {
 
-    @Override
-    public Reimbursement findUserByUsername(String username) {
-        return null;
-    }
-
-    @Override
-    public Reimbursement findUserByEmail(String email) {
-        return null;
     }
 
 }

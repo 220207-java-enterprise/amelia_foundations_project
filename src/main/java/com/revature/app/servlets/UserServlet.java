@@ -48,12 +48,12 @@ public class UserServlet extends HttpServlet {
         if (reqFrags.length == 4 && reqFrags[3].equals("availability")) {
             checkAvailability(req, resp);
             logger.debug("UserServlet#doGet returned successfully");
-            return; // necessary, otherwise we end up doing more work than was requested
+            return;
         }
 
         // TODO implement some security logic here to protect sensitive operations
 
-        // get users (all, by id, by w/e)
+        //get users (all, by id, by w/e)
 //        HttpSession session = req.getSession(false);
 //        if (session == null) {
 //            resp.setStatus(401);
@@ -99,11 +99,14 @@ public class UserServlet extends HttpServlet {
             respWriter.write(payload);
 
         } catch (InvalidRequestException | DatabindException e) {
+            e.printStackTrace();
             resp.setStatus(400); // BAD REQUEST
         } catch (ResourceConflictException e) {
+            e.printStackTrace();
             resp.setStatus(409); // CONFLICT
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
+            e.printStackTrace();
             resp.setStatus(500);
         }
 

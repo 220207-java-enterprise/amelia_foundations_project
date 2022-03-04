@@ -4,9 +4,8 @@ import java.sql.Timestamp;
 
 // create User class and encapsulating Reimbursement states
 public class Reimbursement {
-
     private String reimbId;
-    private int amount;
+    private double amount;
     private Timestamp submitted;
     private Timestamp resolved;
     private String description;
@@ -21,7 +20,7 @@ public class Reimbursement {
         super();
     }
     //creating constructor for parameters
-    public Reimbursement(String reimbId, int amount, Timestamp submitted, Timestamp resolved, String description, Byte receipt, String paymentId, String authorId, String resolverId, String statusId, String typeId) {
+    public Reimbursement(String reimbId, double amount, Timestamp submitted, Timestamp resolved, String description, Byte receipt, String paymentId, String authorId, String resolverId, String statusId, String typeId) {
         this.reimbId = reimbId;
         this.amount = amount;
         this.submitted = submitted;
@@ -34,6 +33,7 @@ public class Reimbursement {
         this.statusId = statusId;
         this.typeId = typeId;
     }
+
     //getters and setters for encapsulated data
     public String getReimbId() {
         return reimbId;
@@ -43,7 +43,7 @@ public class Reimbursement {
         this.reimbId = reimbId;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
@@ -115,21 +115,29 @@ public class Reimbursement {
         this.statusId = statusId;
     }
 
-    /*public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status, String statusId) {
-        this.status = status;
-    }*/
-
     public String getTypeId() {
         return typeId;
     }
 
-    public void setType(String typeId, String type) {
+    public void setTypeId(String typeId) {
         this.typeId = typeId;
     }
+
+    /*public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }*/
 
     @Override
     public String toString() {
@@ -146,5 +154,4 @@ public class Reimbursement {
                 ", status_id='" + statusId + '\'' +
                 ", type_id='" + typeId + '\'' + '}';
     }
-
 }

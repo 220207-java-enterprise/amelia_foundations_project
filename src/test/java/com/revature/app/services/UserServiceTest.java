@@ -1,16 +1,21 @@
+/*
+
 package com.revature.app.services;
 
-// Test Suite
-// A class that encapsulates one or more test methods (cases)
 import com.revature.app.daos.UserDAO;
 import com.revature.app.dtos.requests.LoginRequest;
+import com.revature.app.dtos.requests.NewUserRequest;
 import com.revature.app.models.User;
+import com.revature.app.models.UserRole;
 import com.revature.app.util.exceptions.AuthenticationException;
+import com.revature.app.util.exceptions.DataSourceException;
 import com.revature.app.util.exceptions.InvalidRequestException;
 import org.junit.*;
 import org.mockito.Mockito;
 
-import static org.junit.Assert.assertNotNull;
+import java.sql.SQLException;
+
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 // Because the package structure of our test directory mirrors the src directory,
@@ -18,7 +23,7 @@ import static org.mockito.Mockito.*;
 // UserService.java
 public class UserServiceTest {
 
-    /*
+
         Common JUnit annotations:
             - @Test (marks a method as a test case)
             - @Ignore (tells JUnit to skip this test case)
@@ -26,14 +31,15 @@ public class UserServiceTest {
             - @After (logic that runs once after every test case)
             - @BeforeClass (logic that runs only once before all test cases)
             - @AfterClass (logic that runs only once after all test cases)
-     */
+
+
 
     private UserService sut; // sut = System Under Test
     private UserDAO mockUserDao = mock(UserDAO.class);
 
     @Before
     public void setup() {
-        sut = new UserService(mockUserDao); // TODO UserDAO needs to be mocked
+        sut = new UserService(mockUserDao);
     }
 
     @After
@@ -71,17 +77,17 @@ public class UserServiceTest {
 
     @Test
     public void test_isUsernameValid_returnsFalse_givenShortUsername() {
-        Assert.assertFalse(sut.isUsernameValid("Your username is too short."));
+        Assert.assertFalse(sut.isUsernameValid("short"));
     }
 
     @Test
     public void test_isUsernameValid_returnsFalse_givenLongUsername() {
-        Assert.assertFalse(sut.isUsernameValid("Your username is too long."));
+        Assert.assertFalse(sut.isUsernameValid("waytolongofausernameforourapplication"));
     }
 
     @Test
     public void test_isUsernameValid_returnsFalse_givenUsernameWithIllegalCharacters() {
-        Assert.assertFalse(sut.isUsernameValid("Your username cannot contain those symbols."));
+        Assert.assertFalse(sut.isUsernameValid("tester99!"));
     }
 
     @Test
@@ -133,7 +139,6 @@ public class UserServiceTest {
         }
 
     }
-
     @Test(expected = AuthenticationException.class)
     public void test_login_throwsAuthenticationException_givenUnknownUserCredentials() {
 
@@ -157,7 +162,7 @@ public class UserServiceTest {
         // Arrange
         UserService spiedSut = Mockito.spy(sut);
 
-        LoginRequest loginRequest = new LoginRequest("tester99", "p4$$W0RD");
+        LoginRequest loginRequest = new LoginRequest("alpha11", "p&55WORD");
 
         when(spiedSut.isUsernameValid(loginRequest.getUsername())).thenReturn(true);
         when(spiedSut.isPasswordValid(loginRequest.getPassword())).thenReturn(true);
@@ -174,4 +179,82 @@ public class UserServiceTest {
 
     }
 
+    // register tests
+    // - confirm the positive case (valid user provided, no conflicts)
+    // - given invalid user data (empty strings/null values)
+    // - given valid user, but has conflict in datasource
+
+    @Test
+    public void test_register_returnsPersistedAppUser_givenValidNewUserDataWithNoConflicts() {
+
+        // Arrange
+        UserService spiedSut = Mockito.spy(sut);
+        NewUserRequest stubbedRequest = new NewUserRequest("Guaya", "Rainbow", "Guaya369@revature.com", "Guaya369", "p&55WORD", true, "003", "EMPLOYEE");
+        UserRole expectedRole = new UserRole("003", "EMPLOYEE");
+        doReturn(true).when(spiedSut).isUserValid(any());
+        doReturn(true).when(spiedSut).isUsernameAvailable(anyString());
+        doReturn(true).when(spiedSut).isEmailAvailable(anyString());
+        doNothing().when(mockUserDao).save(any());
+
+        // Act
+        User registerResult = spiedSut.register(stubbedRequest);
+
+        // Assert
+        assertNotNull(registerResult);
+        assertNotNull(registerResult.getUserId());
+        assertEquals(expectedRole, registerResult.getRole());
+        verify(spiedSut, times(1)).isUserValid(any());
+        verify(spiedSut, times(1)).isUsernameAvailable(anyString());
+        verify(spiedSut, times(1)).isEmailAvailable(anyString());
+        verify(mockUserDao, times(1)).save(any());
+
+    }
+
+    @Test(expected = InvalidRequestException.class)
+    public void test_register_throwsInvalidRequestException_givenInvalidNewUserData() {
+
+        // Arrange
+        UserService spiedSut = Mockito.spy(sut);
+        NewUserRequest stubbedRequest = new NewUserRequest();
+        doReturn(false).when(spiedSut).isUserValid(any());
+
+        // Act
+        try {
+            spiedSut.register(stubbedRequest);
+        } finally {
+            // Assert
+            verify(spiedSut, times(1)).isUserValid(any());
+            verify(spiedSut, times(0)).isUsernameAvailable(anyString());
+            verify(spiedSut, times(0)).isEmailAvailable(anyString());
+            verify(mockUserDao, times(0)).save(any());
+        }
+
+    }
+
+    @Test(expected = DataSourceException.class)
+    public void test_register_propagatesDataSourceException_givenDaoThrows() {
+
+        // Arrange
+        UserService spiedSut = Mockito.spy(sut);
+        NewUserRequest stubbedRequest = new NewUserRequest("Guaya", "Rainbow", "Guaya369@revature.com", "Guaya369", "p&55WORD", true, "003", "EMPLOYEE");
+        User extractedUser = stubbedRequest.extractUser();
+        UserRole expectedRole = new UserRole("003", "EMPLOYEE");
+        doReturn(true).when(spiedSut).isUserValid(extractedUser);
+        doReturn(true).when(spiedSut).isUsernameAvailable(anyString());
+        doReturn(true).when(spiedSut).isEmailAvailable(anyString());
+        doThrow(new DataSourceException(new SQLException("stubbedSQLException"))).when(mockUserDao).save(any());
+
+        // Act
+        try {
+            spiedSut.register(stubbedRequest);
+        } finally {
+            verify(spiedSut, times(1)).isUserValid(any());
+            verify(spiedSut, times(1)).isUsernameAvailable(anyString());
+            verify(spiedSut, times(1)).isEmailAvailable(anyString());
+            verify(mockUserDao, times(1)).save(any());
+        }
+    }
+
 }
+
+*/

@@ -1,5 +1,6 @@
 package com.revature.app.dtos.responses;
 
+import com.revature.app.models.Reimbursement;
 import com.revature.app.models.User;
 
 public class UserResponse {
@@ -30,6 +31,9 @@ public class UserResponse {
         this.roleId = users.getRoleId();
         this.role = users.getRole().getRole();
 
+    }
+
+    public UserResponse(Reimbursement reimbursement) {
     }
 
     public String getUserId() {

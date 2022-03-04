@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class UserService {
 
-    private CrudDAO<User> userDAO; // a dependency of UserService
+    public UserDAO userDAO; // a dependency of UserService
 
     // Constructor injection
     public UserService(UserDAO userDAO) {
@@ -70,7 +70,6 @@ public class UserService {
         }
 
         // TODO encrypt provided password (assumes password encryption is in place) to see if it matches what is in the DB
-
         User authUser = userDAO.findUserByUsernameAndPassword(username, password);
 
         if (authUser == null) {
@@ -81,7 +80,7 @@ public class UserService {
 
     }
 
-    private boolean isUserValid(User users) {
+    boolean isUserValid(User users) {
 
         // First name and last name are not just empty strings or filled with whitespace
         if (users.getGivenName().trim().equals("") || users.getSurname().trim().equals("")) {

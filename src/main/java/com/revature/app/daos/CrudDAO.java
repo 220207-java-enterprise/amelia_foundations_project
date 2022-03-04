@@ -1,18 +1,15 @@
 package com.revature.app.daos;
 
+import com.revature.app.models.Reimbursement;
+import com.revature.app.models.User;
+
 import java.util.List;
 
 public interface CrudDAO<T> {
 
     void save(T newObject);
-    T getByUserId(String userId);
+    T getById(String id);
     List<T> getAll();
     void update(T updatedObject);
-    void deleteByUserId(String userId);
-
-    T findUserByUsernameAndPassword(String username, String password);
-
-    T findUserByUsername(String username);
-
-    T findUserByEmail(String email);
+    void deleteById(String id);
 }

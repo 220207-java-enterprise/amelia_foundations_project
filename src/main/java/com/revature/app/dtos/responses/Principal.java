@@ -12,10 +12,10 @@ public class Principal {
         super();
     }
 
-    public Principal(User users) {
-        this.userId = users.getUserId();
-        this.username = users.getUsername();
-        this.role = users.getRole().getRole();
+    public Principal(User user) {
+        this.userId = user.getUserId();
+        this.username = user.getUsername();
+        this.role = user.getRole().getRole();
     }
 
     public String getUserId() {

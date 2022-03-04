@@ -2,8 +2,9 @@ package com.revature.app.dtos.requests;
 
 import com.revature.app.models.User;
 import com.revature.app.models.UserRole;
+import com.revature.app.dtos.responses.Principal;
 
-public class NewUserRequest {
+public class NewUserRequest extends User {
 
     private String givenName;
     private String surname;
@@ -13,12 +14,13 @@ public class NewUserRequest {
     private Boolean isActive;
     private String roleId;
     private UserRole role;
+    private Boolean newRequesterIsAdmin = false;
 
     public NewUserRequest() {
         super();
     }
 
-    public NewUserRequest(String givenName, String surname, String email, String username, String password, Boolean isActive, String roleId, UserRole role) {
+    /*public NewUserRequest(String givenName, String surname, String email, String username, String password, Boolean isActive, String roleId, UserRole role) {
         this.givenName = givenName;
         this.surname = surname;
         this.email = email;
@@ -27,7 +29,7 @@ public class NewUserRequest {
         this.isActive = isActive;
         this.roleId = roleId;
         this.role = role;
-    }
+    }*/
 
     public String getGivenName() {
         return givenName;
@@ -91,6 +93,14 @@ public class NewUserRequest {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public Boolean getNewRequesterIsAdmin() {
+        return newRequesterIsAdmin;
+    }
+
+    public void setNewRequesterIsAdmin(Boolean newRequesterIsAdmin) {
+        this.newRequesterIsAdmin = newRequesterIsAdmin;
     }
 
     public User extractUser() {

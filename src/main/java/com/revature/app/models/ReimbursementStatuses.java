@@ -1,7 +1,7 @@
 package com.revature.app.models;
 
 //creating ReimbursementStatus class and encapsulating states
-public class ReimbursementStatuses {
+public class ReimbursementStatuses extends Reimbursement {
 
     private String statusId;
     private String status;

@@ -22,7 +22,7 @@ public class TokenService {
 
         JwtBuilder tokenBuilder = Jwts.builder()
                 .setId(subject.getUserId())
-                .setIssuer("app")
+                .setIssuer("app-ad")
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(now + jwtConfig.getExpiration()))
                 .setSubject(subject.getUsername())

@@ -1,5 +1,6 @@
 package com.revature.app.daos;
 
+import com.revature.app.models.Reimbursement;
 import com.revature.app.models.User;
 import com.revature.app.models.UserRole;
 import com.revature.app.util.ConnectionFactory;
@@ -12,14 +13,13 @@ import java.util.List;
 
 // TODO attempt to centralize exception handling in service layer
 public class UserDAO implements CrudDAO<User> {
-    private List<User> user = new ArrayList<>();
 
     private final String rootSelect = "SELECT " +
             "au.user_id, au.username, au.email, au.PASSWORD, au.given_name, au.surname, au.is_active, ur.role_id " +
             "FROM users au " +
             "JOIN user_role ur " +
             "ON au.role = ur.role_id ";
-    private User newUser;
+    //private User newUser;
 
     public User findUserByUsername(String username) {
 
@@ -72,7 +72,7 @@ public class UserDAO implements CrudDAO<User> {
                 user.setSurname(rs.getString("surname"));
                 user.setIsActive(rs.getBoolean("is_active"));
                 user.setRoleId(rs.getString("role_id"));
-                user.setRole(new UserRole(rs.getString("role"), rs.getString("role")));
+                user.setRole(new UserRole(rs.getString("role"), rs.getString("role_id")));
 
             }
 
@@ -105,7 +105,7 @@ public class UserDAO implements CrudDAO<User> {
                 authUser.setSurname(rs.getString("surname"));
                 authUser.setIsActive(rs.getBoolean("is_active"));
                 authUser.setRoleId(rs.getString("role_id"));
-                authUser.setRole(new UserRole(rs.getString("role"), rs.getString("role")));
+                authUser.setRole(new UserRole(rs.getString("role"), rs.getString("role_id")));
 
             }
 
@@ -117,7 +117,7 @@ public class UserDAO implements CrudDAO<User> {
     }
 
     @Override
-    public void save(User newUsers) {
+    public void save(User newUser) {
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
@@ -148,14 +148,14 @@ public class UserDAO implements CrudDAO<User> {
     }
 
     @Override
-    public User getByUserId(String userId) {
+    public User getById(String id) {
 
         User user = null;
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
             PreparedStatement pstmt = conn.prepareStatement(rootSelect + "WHERE user_id = ?");
-            pstmt.setString(1, userId);
+            pstmt.setString(1, id);
 
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -168,7 +168,7 @@ public class UserDAO implements CrudDAO<User> {
                 user.setSurname(rs.getString("surname"));
                 user.setIsActive(rs.getBoolean("is_active"));
                 user.setRoleId(rs.getString("role_id"));
-                user.setRole(new UserRole(rs.getString("role"), rs.getString("role")));
+                user.setRole(new UserRole(rs.getString("role"), rs.getString("role_id")));
 
             }
 
@@ -198,7 +198,7 @@ public class UserDAO implements CrudDAO<User> {
                 user.setSurname(rs.getString("surname"));
                 user.setIsActive(rs.getBoolean("is_active"));
                 user.setRoleId(rs.getString("role_id"));
-                user.setRole(new UserRole(rs.getString("role"), rs.getString("role")));
+                user.setRole(new UserRole(rs.getString("role"), rs.getString("role_id")));
                 users.add(user);                        //fix issue above
             }
         } catch (SQLException e) {
@@ -244,7 +244,7 @@ public class UserDAO implements CrudDAO<User> {
     }
 
     @Override
-    public void deleteByUserId(String userId) {
+    public void deleteById(String userId) {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
             conn.setAutoCommit(false);
