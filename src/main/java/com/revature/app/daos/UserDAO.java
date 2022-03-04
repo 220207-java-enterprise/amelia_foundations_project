@@ -15,10 +15,10 @@ import java.util.List;
 public class UserDAO implements CrudDAO<User> {
 
     private final String rootSelect = "SELECT " +
-            "au.user_id, au.username, au.email, au.PASSWORD, au.given_name, au.surname, au.is_active, ur.role_id " +
+            "au.user_id, au.username, au.email, au.PASSWORD, au.given_name, au.surname, au.is_active, ur.role, ur.role_id " +
             "FROM users au " +
-            "JOIN user_role ur " +
-            "ON au.role = ur.role_id ";
+            "JOIN user_roles ur " +
+            "ON au.role_id = ur.role_id ";
     //private User newUser;
 
     public User findUserByUsername(String username) {
@@ -49,7 +49,7 @@ public class UserDAO implements CrudDAO<User> {
             e.printStackTrace();
         }
 
-        return user;
+          return user;
     }
 
     public User findUserByEmail(String email) {
@@ -122,17 +122,15 @@ public class UserDAO implements CrudDAO<User> {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
             conn.setAutoCommit(false);
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO user VALUES (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             pstmt.setString(1, newUser.getUserId());
             pstmt.setString(2, newUser.getUsername());
             pstmt.setString(3, newUser.getEmail());
             pstmt.setString(4, newUser.getPassword());
             pstmt.setString(5, newUser.getGivenName());
             pstmt.setString(6, newUser.getSurname());
-            pstmt.setBoolean(7, newUser.getIsActive());
-            pstmt.setString(8, newUser.getSurname());
-            pstmt.setString(9, newUser.getRoleId());
-            pstmt.setString(10, newUser.getRole().getRoleId());
+            pstmt.setBoolean(7, true);
+            pstmt.setString(8, newUser.getRoleId());
 
             int rowsInserted = pstmt.executeUpdate();
             if (rowsInserted != 1) {

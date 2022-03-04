@@ -37,6 +37,8 @@ public class UserService {
 
         User newUser = newUserRequest.extractUser();
 
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + newUser);
+
         if (!isUserValid(newUser)) {
             throw new InvalidRequestException("Bad registration details given.");
         }
@@ -81,6 +83,10 @@ public class UserService {
     }
 
     boolean isUserValid(User users) {
+
+        if (users == null) {
+            return false;
+        }
 
         // First name and last name are not just empty strings or filled with whitespace
         if (users.getGivenName().trim().equals("") || users.getSurname().trim().equals("")) {

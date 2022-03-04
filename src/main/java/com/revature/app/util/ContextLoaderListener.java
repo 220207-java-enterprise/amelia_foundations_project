@@ -32,7 +32,7 @@ public class ContextLoaderListener implements ServletContextListener {
 
         // Programmatic Servlet Registration
         ServletContext context = sce.getServletContext();
-        context.addServlet("UserServlet", userServlet).addMapping("/users/*");
+        context.addServlet("UserServlet", userServlet).addMapping("/user/*");
         context.addServlet("AuthServlet", authServlet).addMapping("/auth");
 
     }

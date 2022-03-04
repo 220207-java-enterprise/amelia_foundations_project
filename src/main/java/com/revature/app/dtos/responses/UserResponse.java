@@ -33,9 +33,6 @@ public class UserResponse {
 
     }
 
-    public UserResponse(Reimbursement reimbursement) {
-    }
-
     public String getUserId() {
         return userId;
     }
