@@ -31,12 +31,13 @@ public class User {
         this.role = role;
     }
 
-    public User(String givenName, String surname, String email, String username, String password) {
+    public User(String givenName, String surname, String email, String username, String password, UserRole role) {
         this.givenName = givenName;
         this.surname = surname;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
     //getters and setters for encapsulated data

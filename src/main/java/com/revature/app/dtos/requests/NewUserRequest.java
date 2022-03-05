@@ -92,7 +92,7 @@ public class NewUserRequest extends User {
     }
 
     public User extractUser() {
-        return new User(givenName, surname, email, username, password);
+        return new User(givenName, surname, email, username, password, role);
     }
 
     @Override
