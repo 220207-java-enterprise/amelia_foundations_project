@@ -1,7 +1,7 @@
 package com.revature.app.dtos.responses;
 
+import com.revature.app.models.Reimbursement;
 import com.revature.app.models.User;
-import com.revature.app.models.UserRole;
 
 public class UserResponse {
 
@@ -13,7 +13,7 @@ public class UserResponse {
     private String surname;
     private Boolean isActive;
     private String roleId;
-    private UserRole role;
+    private String role;
 
 
     public UserResponse() {
@@ -29,7 +29,7 @@ public class UserResponse {
         this.surname = users.getSurname();
         this.isActive = users.getIsActive();
         this.roleId = users.getRoleId();
-        this.role = users.getRole();
+        this.role = users.getRole().getRole();
 
     }
 
@@ -97,11 +97,11 @@ public class UserResponse {
         this.roleId = roleId;
     }
 
-    public UserRole getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(UserRole role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }
