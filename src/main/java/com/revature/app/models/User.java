@@ -12,20 +12,18 @@ public class User {
     private String givenName;
     private String surname;
     private Boolean isActive;
-    private String roleId;
     private UserRole role;
 
     public User() {
         super();
     }
     //creating constructor for parameters
-    public User(String givenName, String surname, String email, String username, String password, Boolean isActive, UserRole role) {
+    public User(String givenName, String surname, String email, String username, String password, UserRole role) {
         this.givenName = givenName;
         this.surname = surname;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.isActive = isActive;
         this.role = role;
     }
 
@@ -86,14 +84,6 @@ public class User {
         this.isActive = isActive;
     }
 
-    public String getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
-
     public UserRole getRole() {
         return role;
     }
@@ -114,7 +104,6 @@ public class User {
                 && Objects.equals(givenName, users.givenName)
                 && Objects.equals(surname, users.surname)
                 && Objects.equals(isActive, users.isActive)
-                //&& Objects.equals(roleId, users.roleId)
                 && Objects.equals(role, users.role);
     }
     //overriding hashCode method so we get proper values
@@ -132,8 +121,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", givenName='" + givenName + '\'' +
                 ", surname='" + surname + '\'' +
-                ", isActive='" + isActive + '\'' +
-                //", role_id='" + roleId + '\'' +
                 ", role='" + role + '\'' +
                 '}';
     }

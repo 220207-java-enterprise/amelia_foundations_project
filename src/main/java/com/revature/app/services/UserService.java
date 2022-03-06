@@ -53,10 +53,8 @@ public class UserService {
             throw new ResourceConflictException(msg);
         }
 
-        // TODO encrypt provided password before storing in the database
-
         newUser.setUserId(UUID.randomUUID().toString());
-        newUser.setRole(new UserRole("003", "EMPLOYEE")); // All newly registered users start as BASIC_USER
+        newUser.setRole(new UserRole("3", "EMPLOYEE")); // All newly registered users start as BASIC_USER
         userDAO.save(newUser);
 
         return newUser;

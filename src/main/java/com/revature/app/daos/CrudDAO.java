@@ -1,5 +1,7 @@
 package com.revature.app.daos;
 
+import com.revature.app.models.User;
+
 import java.util.List;
 
 public interface CrudDAO<T> {
@@ -9,4 +11,6 @@ public interface CrudDAO<T> {
     List<T> getAll();
     void update(T updatedObject);
     void deleteById(String id);
+
+    void deleteById(User objectToDelete);
 }

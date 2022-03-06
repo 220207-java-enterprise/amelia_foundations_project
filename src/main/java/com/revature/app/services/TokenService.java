@@ -21,7 +21,7 @@ public class TokenService {
         long now = System.currentTimeMillis();
 
         JwtBuilder tokenBuilder = Jwts.builder()
-                .setId(subject.getUserId())
+                .setId(subject.getId())
                 .setIssuer("app-ad")
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(now + jwtConfig.getExpiration()))
@@ -43,7 +43,7 @@ public class TokenService {
                     .getBody();
 
             Principal principal = new Principal();
-            principal.setUserId(claims.getId()); //??
+            principal.setId(claims.getId()); //??
             principal.setUsername(claims.getSubject());
             principal.setRole(claims.get("role", String.class));
 

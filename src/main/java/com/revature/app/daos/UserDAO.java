@@ -1,6 +1,5 @@
 package com.revature.app.daos;
 
-import com.revature.app.models.Reimbursement;
 import com.revature.app.models.User;
 import com.revature.app.models.UserRole;
 import com.revature.app.util.ConnectionFactory;
@@ -11,15 +10,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO attempt to centralize exception handling in service layer
 public class UserDAO implements CrudDAO<User> {
 
-    private final String rootSelect = "SELECT " +
-            "au.user_id, au.username, au.email, au.PASSWORD, au.given_name, au.surname, au.is_active, ur.role, ur.role_id " +
-            "FROM users au " +
-            "JOIN user_roles ur " +
-            "ON au.role_id = ur.role_id ";
-    //private User newUser;
+    private final String rootSelect = "SELECT * FROM users " +
+                                        "JOIN user_roles " +
+                                        "ON users.role_id = user_roles.role_id ";
 
     public User findUserByUsername(String username) {
 
@@ -40,8 +35,7 @@ public class UserDAO implements CrudDAO<User> {
                 user.setGivenName(rs.getString("given_name"));
                 user.setSurname(rs.getString("surname"));
                 user.setIsActive(rs.getBoolean("is_active"));
-                user.setRoleId(rs.getString("role_id"));
-                user.setRole(new UserRole(rs.getString("role"), rs.getString("role")));
+                user.setRole(new UserRole(rs.getString("role_id"), rs.getString("role")));
 
             }
 
@@ -71,8 +65,7 @@ public class UserDAO implements CrudDAO<User> {
                 user.setGivenName(rs.getString("given_name"));
                 user.setSurname(rs.getString("surname"));
                 user.setIsActive(rs.getBoolean("is_active"));
-                user.setRoleId(rs.getString("role_id"));
-                user.setRole(new UserRole(rs.getString("role"), rs.getString("role_id")));
+                user.setRole(new UserRole(rs.getString("role_id"), rs.getString("role")));
 
             }
 
@@ -104,8 +97,7 @@ public class UserDAO implements CrudDAO<User> {
                 authUser.setGivenName(rs.getString("given_name"));
                 authUser.setSurname(rs.getString("surname"));
                 authUser.setIsActive(rs.getBoolean("is_active"));
-                authUser.setRoleId(rs.getString("role_id"));
-                authUser.setRole(new UserRole(rs.getString("role"), rs.getString("role_id")));
+                authUser.setRole(new UserRole(rs.getString("role_id"), rs.getString("role")));
 
             }
 
@@ -130,10 +122,10 @@ public class UserDAO implements CrudDAO<User> {
             pstmt.setString(5, newUser.getGivenName());
             pstmt.setString(6, newUser.getSurname());
             pstmt.setBoolean(7, true);
-            pstmt.setString(8, newUser.getRoleId());
+            pstmt.setString(8, newUser.getRole().getId());
 
-            int rowsInserted = pstmt.executeUpdate();
-            if (rowsInserted != 1) {
+            int rowsInserted2 = pstmt.executeUpdate();
+            if (rowsInserted2 != 1) {
                 conn.rollback();
                 throw new ResourcePersistenceException("Failed to persist user to data source");
             }
@@ -165,8 +157,7 @@ public class UserDAO implements CrudDAO<User> {
                 user.setGivenName(rs.getString("given_name"));
                 user.setSurname(rs.getString("surname"));
                 user.setIsActive(rs.getBoolean("is_active"));
-                user.setRoleId(rs.getString("role_id"));
-                user.setRole(new UserRole(rs.getString("role"), rs.getString("role_id")));
+                user.setRole(new UserRole(rs.getString("role_id"), rs.getString("role")));
 
             }
 
@@ -195,8 +186,7 @@ public class UserDAO implements CrudDAO<User> {
                 user.setGivenName(rs.getString("given_name"));
                 user.setSurname(rs.getString("surname"));
                 user.setIsActive(rs.getBoolean("is_active"));
-                user.setRoleId(rs.getString("role_id"));
-                user.setRole(new UserRole(rs.getString("role"), rs.getString("role_id")));
+                user.setRole(new UserRole(rs.getString("role_id"), rs.getString("role")));
                 users.add(user);                        //fix issue above
             }
         } catch (SQLException e) {
@@ -211,15 +201,15 @@ public class UserDAO implements CrudDAO<User> {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
             conn.setAutoCommit(false);
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE user " +
-                    "SET username = ?, " +
-                    "email = ?, " +
-                    "password = ?, " +
-                    "givenName = ?, " +
-                    "surname = ? " +
-                    "is_active = ?, " +
-                    "role_id = ? " +
-                    "WHERE user_id = ?");
+            PreparedStatement pstmt = conn.prepareStatement(
+                                        "UPDATE users " +
+                                        "SET username = ?, " +
+                                        "email = ?, " +
+                                        "password = ?, " +
+                                        "givenName = ?, " +
+                                        "surname = ? " +
+                                        "role_id = ? " +
+                                        "WHERE user_id = ?");
             pstmt.setString(1, updatedUser.getUserId());
             pstmt.setString(2, updatedUser.getUsername());
             pstmt.setString(3, updatedUser.getEmail());
@@ -227,7 +217,7 @@ public class UserDAO implements CrudDAO<User> {
             pstmt.setString(5, updatedUser.getGivenName());
             pstmt.setString(6, updatedUser.getSurname());
             pstmt.setBoolean(7, updatedUser.getIsActive());
-            pstmt.setString(8, updatedUser.getRoleId());
+            pstmt.setString(8, updatedUser.getRole().getRoleName());
 
             int rowsInserted = pstmt.executeUpdate();
             if (rowsInserted != 1) {
@@ -242,14 +232,20 @@ public class UserDAO implements CrudDAO<User> {
     }
 
     @Override
-    public void deleteById(String userId) {
+    public void deleteById(String id) {
+
+    }
+
+    @Override
+    public void deleteById(User objectToDelete) {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
             conn.setAutoCommit(false);
-            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM user WHERE user_id = ?");
-            pstmt.setString(1, userId);
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM users WHERE user_id = ?");
+            pstmt.setString(1, objectToDelete.getRole().getId());
 
             int rowsInserted = pstmt.executeUpdate();
+            System.out.println(rowsInserted);
             if (rowsInserted != 1) {
                 conn.rollback();
                 throw new ResourcePersistenceException("Failed to delete user from data source");

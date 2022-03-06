@@ -3,32 +3,32 @@ import java.util.Objects;
 
 //creating UserRole class and encapsulating states
 public class UserRole {
-        private String roleId;
-        private String role;
+        private String id;
+        private String roleName;
 
         public UserRole() {
                 super();
         }
         //creating constructor for parameters
-        public UserRole(String roleId, String role) {
-                this.roleId = roleId;
-                this.role = role;
+        public UserRole(String id, String roleName) {
+                this.id = id;
+                this.roleName = roleName;
         }
 
-        public String getRoleId() {
-                return roleId;
+        public String getId() {
+                return id;
         }
 
-        public void setRoleId(String roleId) {
-                this.roleId = roleId;
+        public void setId(String id) {
+                this.id = id;
         }
 
-        public String getRole() {
-                return role;
+        public String getRoleName() {
+                return roleName;
         }
 
-        public void setRole(String role) {
-                this.role = role;
+        public void setRoleName(String roleName) {
+                this.roleName = roleName;
         }
 
         @Override
@@ -36,19 +36,19 @@ public class UserRole {
                 if (this == o) return true;
                 if (o == null || getClass() != o.getClass()) return false;
                 UserRole userRole = (UserRole) o;
-                return Objects.equals(roleId, userRole.roleId) && Objects.equals(role, userRole.role);
+                return Objects.equals(id, userRole.id) && Objects.equals(roleName, userRole.roleName);
         }
 
         @Override
         public int hashCode() {
-                return Objects.hash(roleId, role);
+                return Objects.hash(id, roleName);
         }
 
         //overriding toString method for client/user readability
         @Override
         public String toString() {
                 return "UserRole{" +
-                        "role_id='" + roleId + '\'' +
-                        ", role='" + role + '\'' + '}';
+                        "id='" + id + '\'' +
+                        ", role_name='" + roleName + '\'' + '}';
         }
 }

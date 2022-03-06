@@ -3,20 +3,28 @@ package com.revature.app.dtos.requests;
 import com.revature.app.models.User;
 import com.revature.app.models.UserRole;
 
-public class NewUserRequest extends User {
+import java.util.UUID;
+
+public class NewUserRequest {
 
     private String givenName;
     private String surname;
     private String email;
     private String username;
     private String password;
-    private Boolean isActive;
-    private String roleId;
-    private UserRole role;
-    private Boolean newRequesterIsAdmin = false;
+    private String role;
 
     public NewUserRequest() {
         super();
+    }
+
+    public NewUserRequest (String givenName, String surname, String email, String username, String password, String role) {
+        this.givenName = givenName;
+        this.surname = surname;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 
     public String getGivenName() {
@@ -59,40 +67,18 @@ public class NewUserRequest extends User {
         this.password = password;
     }
 
-    public Boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
-    }
-
-    public String getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
-
-    public UserRole getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(UserRole role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
-    public Boolean getNewRequesterIsAdmin() {
-        return newRequesterIsAdmin;
-    }
-
-    public void setNewRequesterIsAdmin(Boolean newRequesterIsAdmin) {
-        this.newRequesterIsAdmin = newRequesterIsAdmin;
-    }
-
     public User extractUser() {
-        return new User(givenName, surname, email, username, password, isActive, role);
+        String userId = UUID.randomUUID().toString();
+        UserRole uRole = new UserRole(this.role, this.role);
+        return new User(givenName, surname, email, username, password, uRole);
     }
 
     @Override
@@ -103,8 +89,6 @@ public class NewUserRequest extends User {
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", is_active='" + isActive + '\'' +
-                ", role_id='" + roleId + '\'' +
                 ", role='" + role + '\'' +
                 '}';
     }

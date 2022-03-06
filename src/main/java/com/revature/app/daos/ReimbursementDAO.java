@@ -1,6 +1,7 @@
 package com.revature.app.daos;
 
 import com.revature.app.models.Reimbursement;
+import com.revature.app.models.User;
 import com.revature.app.util.ConnectionFactory;
 import com.revature.app.util.exceptions.DataSourceException;
 import com.revature.app.util.exceptions.ResourcePersistenceException;
@@ -167,6 +168,10 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
     @Override
     public void deleteById(String id) {
 
+    }
+
+    @Override
+    public void deleteById(User objectToDelete) {
     }
 
 }
