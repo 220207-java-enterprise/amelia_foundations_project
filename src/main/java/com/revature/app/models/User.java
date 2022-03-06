@@ -19,24 +19,13 @@ public class User {
         super();
     }
     //creating constructor for parameters
-    public User(String userId, String username, String email, String password, String givenName, String surname, Boolean isActive, String roleId, UserRole role) {
-        this.userId = userId;
-        this.username = username;
-        this.email = email;
-        this.password = password;
+    public User(String givenName, String surname, String email, String username, String password, Boolean isActive, UserRole role) {
         this.givenName = givenName;
         this.surname = surname;
+        this.email = email;
+        this.username = username;
+        this.password = password;
         this.isActive = isActive;
-        this.roleId = roleId;
-        this.role = role;
-    }
-
-    public User(String givenName, String surname, String email, String username, String password, UserRole role) {
-        this.givenName = givenName;
-        this.surname = surname;
-        this.email = email;
-        this.username = username;
-        this.password = password;
         this.role = role;
     }
 
@@ -112,7 +101,7 @@ public class User {
     public void setRole(UserRole role) {
         this.role = role;
     }
-    //overriding the equals method to compare data - is this necessary?
+    //overriding the equals method to compare data
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -125,13 +114,13 @@ public class User {
                 && Objects.equals(givenName, users.givenName)
                 && Objects.equals(surname, users.surname)
                 && Objects.equals(isActive, users.isActive)
-                && Objects.equals(roleId, users.roleId)
+                //&& Objects.equals(roleId, users.roleId)
                 && Objects.equals(role, users.role);
     }
     //overriding hashCode method so we get proper values
     @Override
     public int hashCode() {
-        return Objects.hash(userId, username, email, password, givenName, surname, isActive, roleId ,role);
+        return Objects.hash(userId, username, email, password, givenName, surname, isActive, role);
     }
     //overriding toString method for client/user readability
     @Override
@@ -144,7 +133,7 @@ public class User {
                 ", givenName='" + givenName + '\'' +
                 ", surname='" + surname + '\'' +
                 ", isActive='" + isActive + '\'' +
-                ", role_id='" + roleId + '\'' +
+                //", role_id='" + roleId + '\'' +
                 ", role='" + role + '\'' +
                 '}';
     }

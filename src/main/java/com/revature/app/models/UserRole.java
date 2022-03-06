@@ -1,4 +1,5 @@
 package com.revature.app.models;
+import java.util.Objects;
 
 //creating UserRole class and encapsulating states
 public class UserRole {
@@ -28,6 +29,19 @@ public class UserRole {
 
         public void setRole(String role) {
                 this.role = role;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+                UserRole userRole = (UserRole) o;
+                return Objects.equals(roleId, userRole.roleId) && Objects.equals(role, userRole.role);
+        }
+
+        @Override
+        public int hashCode() {
+                return Objects.hash(roleId, role);
         }
 
         //overriding toString method for client/user readability
