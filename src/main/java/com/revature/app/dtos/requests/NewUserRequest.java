@@ -5,26 +5,36 @@ import com.revature.app.models.UserRole;
 
 import java.util.UUID;
 
-public class NewUserRequest {
+public class NewUserRequest extends User {
 
+    private String userId;
     private String givenName;
     private String surname;
     private String email;
     private String username;
     private String password;
-    private String role;
+    private UserRole role;
 
     public NewUserRequest() {
         super();
     }
 
-    public NewUserRequest (String givenName, String surname, String email, String username, String password, String role) {
+    public NewUserRequest (String userId, String givenName, String surname, String email, String username, String password, UserRole role) {
+        this.userId = userId;
         this.givenName = givenName;
         this.surname = surname;
         this.email = email;
         this.username = username;
         this.password = password;
         this.role = role;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getGivenName() {
@@ -67,23 +77,24 @@ public class NewUserRequest {
         this.password = password;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 
     public User extractUser() {
-        String userId = UUID.randomUUID().toString();
-        UserRole uRole = new UserRole(this.role, this.role);
-        return new User(givenName, surname, email, username, password, uRole);
+        /*String userId = UUID.randomUUID().toString();
+        UserRole uRole = new UserRole(this.role, this.role);*/
+        return new User(userId, givenName, surname, email, username, password, role);
     }
 
     @Override
     public String toString() {
         return "NewUserRequest{" +
+                "user_id='" + userId + '\'' +
                 "given_name='" + givenName + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +

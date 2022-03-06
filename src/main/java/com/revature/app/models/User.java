@@ -18,7 +18,8 @@ public class User {
         super();
     }
     //creating constructor for parameters
-    public User(String givenName, String surname, String email, String username, String password, UserRole role) {
+    public User(String userId, String givenName, String surname, String email, String username, String password, UserRole role) {
+        this.userId = userId;
         this.givenName = givenName;
         this.surname = surname;
         this.email = email;
