@@ -38,7 +38,7 @@ public class UserService {
 
         User newUser = newUserRequest.extractUser();
 
-        //System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + newUser);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + newUser);
 
         if (!isUserValid(newUser)) {
             throw new InvalidRequestException("Bad registration details given.");
@@ -104,13 +104,13 @@ public class UserService {
             return false;
         }
 
-        ArrayList<String> validRoles = new ArrayList<String>();
+        /*ArrayList<String> validRoles = new ArrayList<String>();
         validRoles.add("FINANCE MANAGER");
         validRoles.add("ADMIN");
         validRoles.add("EMPLOYEE");
         if(!(validRoles.contains(users.getRole().getRoleName()))) {
             return false;
-        }
+        }*/
 
         // Basic email validation
         return isEmailValid(users.getEmail());

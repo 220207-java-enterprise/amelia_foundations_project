@@ -92,7 +92,7 @@ public class UserServlet extends HttpServlet {
         try {
 
             NewUserRequest newUserRequest = mapper.readValue(req.getInputStream(), NewUserRequest.class);
-            //System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>" + newUserRequest);
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>" + newUserRequest);
             User newUser = userService.register(newUserRequest);
             resp.setStatus(201); // CREATED
             resp.setContentType("application/json");
@@ -110,7 +110,6 @@ public class UserServlet extends HttpServlet {
             e.printStackTrace();
             resp.setStatus(500);
         }
-
     }
 
     protected void checkAvailability(HttpServletRequest req, HttpServletResponse resp) {

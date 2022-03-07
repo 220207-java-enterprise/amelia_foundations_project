@@ -18,14 +18,12 @@ public class User {
         super();
     }
     //creating constructor for parameters
-    public User(String userId, String givenName, String surname, String email, String username, String password, UserRole role) {
-        this.userId = userId;
+    public User(String givenName, String surname, String email, String username, String password) {
         this.givenName = givenName;
         this.surname = surname;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.role = role;
     }
 
     //getters and setters for encapsulated data
@@ -116,13 +114,13 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userId='" + userId + '\'' +
+                //"userId='" + userId + '\'' +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", givenName='" + givenName + '\'' +
                 ", surname='" + surname + '\'' +
-                ", role='" + role + '\'' +
+                //", role='" + role + '\'' +
                 '}';
     }
 

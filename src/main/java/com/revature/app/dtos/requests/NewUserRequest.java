@@ -1,41 +1,34 @@
 package com.revature.app.dtos.requests;
 
 import com.revature.app.models.User;
-import com.revature.app.models.UserRole;
 
-import java.util.UUID;
+public class NewUserRequest {
 
-public class NewUserRequest extends User {
-
-    private String userId;
     private String givenName;
     private String surname;
     private String email;
     private String username;
     private String password;
-    private UserRole role;
 
     public NewUserRequest() {
         super();
     }
 
-    public NewUserRequest (String userId, String givenName, String surname, String email, String username, String password, UserRole role) {
-        this.userId = userId;
+    public NewUserRequest (String givenName, String surname, String email, String username, String password) {
         this.givenName = givenName;
         this.surname = surname;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.role = role;
     }
 
-    public String getUserId() {
+    /*public String getUserId() {
         return userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
+    }*/
 
     public String getGivenName() {
         return givenName;
@@ -77,30 +70,28 @@ public class NewUserRequest extends User {
         this.password = password;
     }
 
-    public UserRole getRole() {
+    /*public String getRole() {
         return role;
     }
 
-    public void setRole(UserRole role) {
+    public void setRole(String role) {
         this.role = role;
-    }
+    }*/
 
     public User extractUser() {
-        String userId = UUID.randomUUID().toString();
-        UserRole uRole = new UserRole();
-        return new User(userId, givenName, surname, email, username, password, uRole);
+        return new User(givenName, surname, email, username, password);
     }
 
     @Override
     public String toString() {
         return "NewUserRequest{" +
-                "user_id='" + userId + '\'' +
+                //"user_id='" + userId + '\'' +
                 "given_name='" + givenName + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
+                //", role='" + role + '\'' +
                 '}';
     }
 }
