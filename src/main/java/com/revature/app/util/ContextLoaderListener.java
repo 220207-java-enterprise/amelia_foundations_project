@@ -32,7 +32,7 @@ public class ContextLoaderListener implements ServletContextListener {
         UserService userService = new UserService(userDAO);
         ReimbursementDAO reimbursementDAO = new ReimbursementDAO();
 
-        ReimbursementService reimbursementService = new ReimbursementService();
+        ReimbursementService reimbursementService = new ReimbursementService(reimbursementDAO);
 
         UserServlet userServlet = new UserServlet(tokenService, userService, mapper);
         AuthServlet authServlet = new AuthServlet(tokenService, userService, mapper);

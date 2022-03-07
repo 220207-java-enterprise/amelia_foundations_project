@@ -189,4 +189,10 @@ public class Reimbursement {
                 ", type_id='" + typeId + '\'' +
                 ", type='" + type + '\'' +'}';
     }
+
+    public void setStatusId(ReimbursementStatuses reimbursementStatuses) {
+    }
+
+    public void setStatus(ReimbursementStatuses newReimbursementStatus) {
+    }
 }

@@ -9,6 +9,7 @@ public class ReimbursementRequest extends Reimbursement {
     private String description;
     private byte receipt;
     private String authorId;
+    private String resolverId;
     private String typeId;
 
     public ReimbursementRequest() {
@@ -16,11 +17,12 @@ public class ReimbursementRequest extends Reimbursement {
 
     }
 
-    public ReimbursementRequest(double amount, String description, byte receipt, String authorId, String typeId) {
+    public ReimbursementRequest(double amount, String description, byte receipt, String authorId, String resolverId, String typeId) {
         this.amount = amount;
         this.description = description;
         this.receipt = receipt;
         this.authorId = authorId;
+        this.resolverId = resolverId;
         this.typeId = typeId;
     }
 
@@ -56,6 +58,16 @@ public class ReimbursementRequest extends Reimbursement {
         this.authorId = authorId;
     }
 
+    @Override
+    public String getResolverId() {
+        return resolverId;
+    }
+
+    @Override
+    public void setResolverId(String resolverId) {
+        this.resolverId = resolverId;
+    }
+
     public String getTypeId() {
         return typeId;
     }
@@ -78,5 +90,4 @@ public class ReimbursementRequest extends Reimbursement {
                 ", type_id='" + typeId + '\'' +
                 '}';
     }
-
 }

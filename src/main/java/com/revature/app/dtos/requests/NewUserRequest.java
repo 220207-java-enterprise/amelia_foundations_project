@@ -86,9 +86,9 @@ public class NewUserRequest extends User {
     }
 
     public User extractUser() {
-        /*String userId = UUID.randomUUID().toString();
-        UserRole uRole = new UserRole(this.role, this.role);*/
-        return new User(userId, givenName, surname, email, username, password, role);
+        String userId = UUID.randomUUID().toString();
+        UserRole uRole = new UserRole();
+        return new User(userId, givenName, surname, email, username, password, uRole);
     }
 
     @Override
@@ -103,5 +103,4 @@ public class NewUserRequest extends User {
                 ", role='" + role + '\'' +
                 '}';
     }
-
 }
