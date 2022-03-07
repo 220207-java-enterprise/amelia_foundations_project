@@ -26,7 +26,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
 
     public Reimbursement newReimbursement;
 
-    public ReimbursementDAO(Reimbursement newReimbursement) {
+    public ReimbursementDAO() {
         this.newReimbursement = newReimbursement;
     }
 
@@ -36,7 +36,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
             conn.setAutoCommit(false);
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO reimbursement_types VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)");
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO reimbursement_types VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?)");
             pstmt.setString(1, newReimbursement.getReimbId());
             pstmt.setDouble(2, newReimbursement.getAmount());
             pstmt.setTimestamp(3, newReimbursement.getSubmitted());
@@ -83,7 +83,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
                 newReimbursement.setPaymentId(rs.getString("payment_id"));
                 newReimbursement.setAuthorId(rs.getString("author_id"));
                 newReimbursement.setResolverId(rs.getString("resolver_id"));
-                newReimbursement.setStatusId(rs.getString("status_id"));
+                newReimbursement.setStatusId(rs.getString("status_id"), rs.getString("status"));
                 newReimbursement.setTypeId(rs.getString("type_id"));
             }
 
@@ -113,7 +113,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
                 newReimbursement.setPaymentId(rs.getString("payment_id"));
                 newReimbursement.setAuthorId(rs.getString("author_id"));
                 newReimbursement.setResolverId(rs.getString("resolver_id"));
-                newReimbursement.setStatusId(rs.getString("status_id"));
+                newReimbursement.setStatusId(rs.getString("status_id"), rs.getString("status"));
                 newReimbursement.setTypeId(rs.getString("type_id"));                 //fix issue above
             }
         } catch (SQLException e) {
@@ -128,7 +128,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
             conn.setAutoCommit(false);
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE reimbursement " +
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE reimbursements " +
                     "SET reimb_id = ?, " +
                     "amount = ?, " +
                     "submitted = ?, " +

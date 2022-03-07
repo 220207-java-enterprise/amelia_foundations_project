@@ -1,7 +1,7 @@
 package com.revature.app.models;
 
 //creating ReimbursementType class and encapsulating states
-public class ReimbursementTypes {
+public class ReimbursementTypes extends Reimbursement {
     private String typeId;
     private String type;
 

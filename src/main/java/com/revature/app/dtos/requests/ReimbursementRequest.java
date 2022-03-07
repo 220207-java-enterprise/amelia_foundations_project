@@ -1,28 +1,28 @@
 package com.revature.app.dtos.requests;
 import com.revature.app.models.Reimbursement;
+import com.revature.app.models.ReimbursementTypes;
+import com.revature.app.models.User;
 
 public class ReimbursementRequest extends Reimbursement {
 
     private double amount;
     private String description;
     private byte receipt;
-    private String paymentId;
     private String authorId;
-    private String typeID;
+    private String typeId;
 
     public ReimbursementRequest() {
         super();
 
     }
 
-    /*public ReimbursementRequest(double amount, String description, byte receipt, String paymentId, String authorId, String typeID) {
+    public ReimbursementRequest(double amount, String description, byte receipt, String authorId, String typeId) {
         this.amount = amount;
         this.description = description;
         this.receipt = receipt;
-        this.paymentId = paymentId;
         this.authorId = authorId;
-        this.typeID = typeID;
-    }*/
+        this.typeId = typeId;
+    }
 
     public double getAmount() {
         return amount;
@@ -48,14 +48,6 @@ public class ReimbursementRequest extends Reimbursement {
         this.receipt = receipt;
     }
 
-    public String getPaymentId() {
-        return paymentId;
-    }
-
-    public void setPaymentId(String paymentId) {
-        this.paymentId = paymentId;
-    }
-
     public String getAuthorId() {
         return authorId;
     }
@@ -64,12 +56,16 @@ public class ReimbursementRequest extends Reimbursement {
         this.authorId = authorId;
     }
 
-    public String getTypeID() {
-        return typeID;
+    public String getTypeId() {
+        return typeId;
     }
 
-    public void setTypeID(String typeID) {
-        this.typeID = typeID;
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
+
+    public Reimbursement extractReimbursement() {
+        return new Reimbursement(amount, description, receipt, authorId, typeId);
     }
 
     @Override
@@ -78,9 +74,8 @@ public class ReimbursementRequest extends Reimbursement {
                 "amount='" + amount + '\'' +
                 ", description='" + description + '\'' +
                 ", receipt='" + receipt + '\'' +
-                ", payment_id='" + paymentId + '\'' +
                 ", author_id='" + authorId + '\'' +
-                ", type_id='" + typeID + '\'' +
+                ", type_id='" + typeId + '\'' +
                 '}';
     }
 

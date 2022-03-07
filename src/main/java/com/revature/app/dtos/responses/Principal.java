@@ -1,6 +1,7 @@
 package com.revature.app.dtos.responses;
 
 import com.revature.app.models.User;
+import com.revature.app.models.Reimbursement;
 
 public class Principal {
 

@@ -6,11 +6,11 @@ import java.util.Objects;
 public class User {
 
     private String userId;
-    private String username;
-    private String email;
-    private String password;
     private String givenName;
     private String surname;
+    private String email;
+    private String username;
+    private String password;
     private Boolean isActive;
     private UserRole role;
 

@@ -1,6 +1,7 @@
 package com.revature.app.models;
 //import java SQL timestamp and superclass Objects
 import java.sql.Timestamp;
+import java.util.Objects;
 
 // create User class and encapsulating Reimbursement states
 public class Reimbursement {
@@ -14,13 +15,15 @@ public class Reimbursement {
     private String authorId;
     private String resolverId;
     private String statusId;
+    private String status;
     private String typeId;
+    private String type;
 
     public Reimbursement() {
         super();
     }
     //creating constructor for parameters
-    public Reimbursement(String reimbId, double amount, Timestamp submitted, Timestamp resolved, String description, Byte receipt, String paymentId, String authorId, String resolverId, String statusId, String typeId) {
+    public Reimbursement(String reimbId, double amount, Timestamp submitted, Timestamp resolved, String description, Byte receipt, String paymentId, String authorId, String resolverId, String statusId, String status, String typeId, String type) {
         this.reimbId = reimbId;
         this.amount = amount;
         this.submitted = submitted;
@@ -31,7 +34,12 @@ public class Reimbursement {
         this.authorId = authorId;
         this.resolverId = resolverId;
         this.statusId = statusId;
-        this.typeId = typeId;
+        this.status = status;
+        this.type = typeId;
+        this.typeId = type;
+    }
+
+    public Reimbursement(double amount, String description, byte receipt, String authorId, String typeId) {
     }
 
     //getters and setters for encapsulated data
@@ -111,7 +119,7 @@ public class Reimbursement {
         return statusId;
     }
 
-    public void setStatusId(String statusId) {
+    public void setStatusId(String statusId, String status) {
         this.statusId = statusId;
     }
 
@@ -123,7 +131,7 @@ public class Reimbursement {
         this.typeId = typeId;
     }
 
-    /*public String getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -137,7 +145,32 @@ public class Reimbursement {
 
     public void setType(String type) {
         this.type = type;
-    }*/
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reimbursement reimbursement = (Reimbursement) o;
+        return Double.compare(reimbursement.amount, amount) == 0
+                            && receipt == reimbursement.receipt
+                            && Objects.equals(reimbId, reimbursement.reimbId)
+                            && Objects.equals(submitted, reimbursement.submitted)
+                            && Objects.equals(resolved, reimbursement.resolved)
+                            && Objects.equals(description, reimbursement.description)
+                            && Objects.equals(paymentId, reimbursement.paymentId)
+                            && Objects.equals(authorId, reimbursement.authorId)
+                            && Objects.equals(resolverId, reimbursement.resolverId)
+                            && Objects.equals(statusId, reimbursement.statusId)
+                            && Objects.equals(status, reimbursement.status)
+                            && Objects.equals(typeId, reimbursement.typeId)
+                            && Objects.equals(type, reimbursement.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(reimbId, amount, submitted, resolved, description, receipt, paymentId, authorId, resolverId, statusId, status, typeId, type);
+    }
 
     @Override
     public String toString() {
@@ -152,6 +185,8 @@ public class Reimbursement {
                 ", author_id='" + authorId + '\'' +
                 ", resolver_id='" + resolverId + '\'' +
                 ", status_id='" + statusId + '\'' +
-                ", type_id='" + typeId + '\'' + '}';
+                ", status='" + status + '\'' +
+                ", type_id='" + typeId + '\'' +
+                ", type='" + type + '\'' +'}';
     }
 }
