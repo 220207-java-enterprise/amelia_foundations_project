@@ -72,15 +72,10 @@ public class ReimbursementServlet extends HttpServlet {
         try {
 
             Principal requester = tokenService.extractRequesterDetails(req.getHeader("Authorization"));
-            if (requester.getRole().equals("EMPLOYEE")) {  //PROBLEM //java.lang.NullPointerException
-                //at com.revature.app.servlets.ReimbursementServlet.doPost(ReimbursementServlet.java:75)
+            if (requester.getRole().equals("EMPLOYEE")) {
                 ReimbursementRequest reimbursementRequest = mapper.readValue(req.getInputStream(), ReimbursementRequest.class);
-
-                //Principal principal = null;
-                //assert principal != null;
-                Reimbursement ReimbursementRequest = new Reimbursement();
-                reimbursementService.request(ReimbursementRequest, reimbursementRequest);  //PROBLEM
-                mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+                reimbursementRequest.setAuthorId(requester.getId());
+                reimbursementService.request(reimbursementRequest);  //PROBLEM
                 String payload = mapper.writeValueAsString(reimbursementRequest);
                 resp.setContentType("application/json");
                 writer.write(payload);

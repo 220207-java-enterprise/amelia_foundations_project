@@ -9,7 +9,9 @@ import com.revature.app.dtos.requests.ReimbursementRequest;
 import com.revature.app.util.exceptions.InvalidRequestException;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class ReimbursementService {
@@ -21,10 +23,11 @@ public class ReimbursementService {
         this.userDAO = userDAO;
     }
 
-    public void request(Reimbursement reimbursement, ReimbursementRequest request) {
+    public void request(ReimbursementRequest request) {
         Reimbursement newReimbursement = request.extractReimbursement();
-        newReimbursement.setAuthorId(reimbursement.getAuthorId());
-
+        newReimbursement.setReimbId(UUID.randomUUID().toString());
+        newReimbursement.setSubmitted(Timestamp.valueOf(LocalDateTime.now()));
+        newReimbursement.setStatusId("01");
         reimbursementDAO.save(newReimbursement);   //PROBLEM
     }
 

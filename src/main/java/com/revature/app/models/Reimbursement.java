@@ -9,6 +9,7 @@ public class Reimbursement {
     private Timestamp submitted;
     private Timestamp resolved;
     private String description;
+    private String receipt = null;
     private String paymentId;
     private String authorId;
     private String resolverId;
@@ -61,6 +62,14 @@ public class Reimbursement {
         this.description = description;
     }
 
+    public String getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(String receipt) {
+        this.receipt = receipt;
+    }
+
     public String getPaymentId() {
         return this.paymentId;
     }
@@ -84,21 +93,15 @@ public class Reimbursement {
 
 
     public String getStatusId() {
-        System.out.println(this.statusId + "right here");
-        return this.statusId = statusId;   //PROBLEM
+        return this.statusId;   //PROBLEM
     }
 
-    public void setStatusObj(String statusId, String status) {
+    public void setStatusId(String statusId) {
         this.statusId = statusId;
-        System.out.println(this.statusId + "this is it");
     }
 
     public String getTypeId() {
         return this.typeId;
-    }
-
-    public void setStatusId(String statusId, String status) {
-        this.statusId = statusId;
     }
 
     public void setTypeId(String typeId) {

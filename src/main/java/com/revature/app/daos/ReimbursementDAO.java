@@ -35,7 +35,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
             conn.setAutoCommit(false);
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO reimbursements VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO reimbursements VALUES (?, ?, ?, ?, ?, null, ?, ?, ?, ?, ?)");
             pstmt.setString(1, newReimbursement.getReimbId());
             pstmt.setFloat(2, newReimbursement.getAmount());
             pstmt.setTimestamp(3, newReimbursement.getSubmitted());
@@ -77,11 +77,11 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
                 newReimbursement.setSubmitted(rs.getTimestamp("submitted"));
                 newReimbursement.setResolved(rs.getTimestamp("resolved"));
                 newReimbursement.setDescription(rs.getString("description"));
-                //newReimbursement.setReceipt(rs.getByte("receipt"));
+                newReimbursement.setReceipt(null);
                 newReimbursement.setPaymentId(rs.getString("payment_id"));
                 newReimbursement.setAuthorId(rs.getString("author_id"));
                 newReimbursement.setResolverId(rs.getString("resolver_id"));
-                newReimbursement.setStatusObj(rs.getString("status_id"), rs.getString("status"));
+                newReimbursement.setStatusId(rs.getString("status_id"));
                 //newReimbursement.setTypeId(rs.getString("type_id"));
             }
 
@@ -110,7 +110,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
                 newReimbursement.setPaymentId(rs.getString("payment_id"));
                 newReimbursement.setAuthorId(rs.getString("author_id"));
                 newReimbursement.setResolverId(rs.getString("resolver_id"));
-                newReimbursement.setStatusId(rs.getString("status_id"), rs.getString("status"));
+                newReimbursement.setStatusId(rs.getString("status_id"));
                 newReimbursement.setTypeId(rs.getString("type_id"));
             }
 
