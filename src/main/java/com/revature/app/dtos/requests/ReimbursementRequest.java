@@ -37,7 +37,7 @@ public class ReimbursementRequest extends Reimbursement {
     }
 
     public Reimbursement extractReimbursement() {
-        return new Reimbursement(amount, description, typeId);
+        return new Reimbursement(amount, description, authorId, typeId);
     }
 }
 

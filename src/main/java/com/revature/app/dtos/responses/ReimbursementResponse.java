@@ -10,11 +10,11 @@ public class ReimbursementResponse {
     private Timestamp submitted;
     private Timestamp resolved;
     private String description;
-    private String payment_id;
-    private Author author;
-    private Resolver resolver;
-    private Status status;
-    private Type type;
+    private String paymentId;
+    private String authorId;
+    private String resolverId;
+    private String statusId;
+    private String typeId;
 
     public ReimbursementResponse (Reimbursement reimbursement) {
         this.reimbId = reimbursement.getReimbId();
@@ -22,14 +22,15 @@ public class ReimbursementResponse {
         this.submitted = reimbursement.getSubmitted();
         this.resolved = reimbursement.getResolved();
         this.description = reimbursement.getDescription();
-        this.payment_id = reimbursement.getPaymentId();
-        this.author = new Author(reimbursement.getAuthorId(), reimbursement.getAuthor());
-        this.resolver = new Resolver(reimbursement.getResolverId(), reimbursement.getResolver());
-        this.status = new Status(reimbursement.getStatusId(), reimbursement.getStatus());
-        this.type = new Type(reimbursement.getTypeId(), reimbursement.getType());
+        this.paymentId = reimbursement.getPaymentId();
+        this.authorId = reimbursement.getAuthorId();
+        this.resolverId = reimbursement.getResolverId();
+        this.statusId = reimbursement.getStatusId();
+        this.typeId = reimbursement.getTypeId();
+
     }
 
-    public ReimbursementResponse(String userId) {
+    public ReimbursementResponse(String newUser) {
     }
 
     public String getReimbId() {
@@ -52,24 +53,8 @@ public class ReimbursementResponse {
         return description;
     }
 
-    public String getPayment_id() {
-        return payment_id;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public Resolver getResolver() {
-        return resolver;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public Type getType() {
-        return type;
+    public String getPaymentId() {
+        return paymentId;
     }
 
     @Override
@@ -80,115 +65,10 @@ public class ReimbursementResponse {
                 ", submitted=" + submitted +
                 ", resolved=" + resolved +
                 ", description='" + description + '\'' +
-                ", payment_id='" + payment_id + '\'' +
-                ", author=" + author +
-                ", resolver=" + resolver +
-                ", status=" + status +
-                ", type=" + type +
+                ", paymentId='" + paymentId + '\'' +
+                ", resolverId='" + resolverId + '\'' +
+                ", statusId='" + statusId + '\'' +
+                ", typeId='" + typeId + '\'' +
                 '}';
-    }
-
-    private static class Author {
-        private String userId;
-        private String username;
-
-        public Author(String userId, String username) {
-            this.userId = userId;
-            this.username = username;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        @Override
-        public String toString() {
-            return "Author{" +
-                    "userId='" + userId + '\'' +
-                    ", username='" + username + '\'' +
-                    '}';
-        }
-    }
-
-    private static class Resolver {
-        private String userId;
-        private String username;
-
-        public Resolver(String userId, String username) {
-            this.userId = userId;
-            this.username = username;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        @Override
-        public String toString() {
-            return "Resolver{" +
-                    "userId='" + userId + '\'' +
-                    ", username='" + username + '\'' +
-                    '}';
-        }
-    }
-
-    private static class Status {
-        private String statusId;
-        private String status;
-
-        public Status(String statusId, String status) {
-            this.statusId = statusId;
-            this.status = status;
-        }
-
-        public String getStatusId() {
-            return statusId;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        @Override
-        public String toString() {
-            return "Status{" +
-                    "statusId='" + statusId + '\'' +
-                    ", status='" + status + '\'' +
-                    '}';
-        }
-    }
-
-    private static class Type {
-        private String statusId;
-        private String status;
-
-        public Type(String statusId, String status) {
-            this.statusId = statusId;
-            this.status = status;
-        }
-
-        public String getStatusId() {
-            return statusId;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        @Override
-        public String toString() {
-            return "Type{" +
-                    "statusId='" + statusId + '\'' +
-                    ", status='" + status + '\'' +
-                    '}';
-        }
     }
 }

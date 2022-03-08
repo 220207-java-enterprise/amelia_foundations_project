@@ -34,7 +34,7 @@ public class TokenService {
     }
 
     public Principal extractRequesterDetails(String token) {
-
+        //System.out.println(token);   //trying to isolate issue
         try {
 
             Claims claims = Jwts.parser()

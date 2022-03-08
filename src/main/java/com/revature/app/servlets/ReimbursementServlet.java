@@ -72,12 +72,14 @@ public class ReimbursementServlet extends HttpServlet {
         try {
 
             Principal requester = tokenService.extractRequesterDetails(req.getHeader("Authorization"));
-            if (requester.getRole().equals("EMPLOYEE")) {
+            if (requester.getRole().equals("EMPLOYEE")) {  //PROBLEM //java.lang.NullPointerException
+                //at com.revature.app.servlets.ReimbursementServlet.doPost(ReimbursementServlet.java:75)
                 ReimbursementRequest reimbursementRequest = mapper.readValue(req.getInputStream(), ReimbursementRequest.class);
+
                 //Principal principal = null;
                 //assert principal != null;
                 Reimbursement ReimbursementRequest = new Reimbursement();
-                reimbursementService.request(ReimbursementRequest, reimbursementRequest);  PROBLEM
+                reimbursementService.request(ReimbursementRequest, reimbursementRequest);  //PROBLEM
                 mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
                 String payload = mapper.writeValueAsString(reimbursementRequest);
                 resp.setContentType("application/json");
@@ -87,7 +89,6 @@ public class ReimbursementServlet extends HttpServlet {
                 resp.setStatus(403); // FORBIDDEN
                 return;
             }
-
 
         } catch (InvalidRequestException | DatabindException e) {
             e.printStackTrace();
@@ -99,29 +100,8 @@ public class ReimbursementServlet extends HttpServlet {
             e.printStackTrace();
             resp.setStatus(500);
         }
-
-    /*@Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String jwt = req.getHeader("Authentication");
-
-        ReimbursementRequest newReimbursementRequest =
-                mapper.readValue(req.getInputStream(), ReimbursementRequest.class);
-        Principal principal = null;
-
-        if (jwt == null) {
-            resp.setStatus(401);
-            throw new AuthenticationException("Not logged in.");
-        }
-        else
-            principal = tokenService.extractRequesterDetails(jwt);
-
-        System.out.println(principal.toString());
-
-        reimbursementService.request(principal, newReimbursementRequest);
-        resp.setStatus(202);
-    }*/
     }
+
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] reqFrags = req.getRequestURI().split("/");

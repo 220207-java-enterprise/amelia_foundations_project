@@ -10,28 +10,20 @@ public class Reimbursement {
     private Timestamp resolved;
     private String description;
     private String paymentId;
-    private final Author author = new Author();
-    private final Resolver resolver = new Resolver();
-    private Status status;
-    private Type type;
+    private String authorId;
+    private String resolverId;
+    private String statusId;
+    private String typeId;
 
     public Reimbursement() {
         super();
     }
 
-    public Reimbursement(
-            Float amount,
-            String description,
-            String typeId
-    ) {
+    public Reimbursement(Float amount, String description, String authorId, String typeId) {
         this.amount = amount;
         this.description = description;
-        this.type = new Type(typeId);
-   //">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-        // generate id
-        /*this.reimbId = UUID.randomUUID().toString();
-        // set status to approved
-        this.status = new Status("pending");*/
+        this.authorId = authorId;
+        this.typeId = typeId;
     }
 
     public String getReimbId() {
@@ -77,109 +69,57 @@ public class Reimbursement {
     }
 
     public String getAuthorId() {
-        return this.author.userId;
+        return this.authorId;
     }
-    public void setAuthorId(String userId) {
-        this.author.userId = userId;
-    }
-
-    public String getAuthor() {
-        return this.author.username;
-    }
-    public void setAuthor (String username) {
-        this.author.username = username;
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
     public String getResolverId() {
-        return this.resolver.userId;
+        return this.resolverId;
     }
-    public void setResolverId(String userId) {
-        this.resolver.userId = userId;
-    }
-
-    public String getResolver() {
-        return this.resolver.username;
-    }
-    public void setResolver(String username) {
-        this.resolver.username = username;
+    public void setResolverId(String resolverId) {
+        this.resolverId = resolverId;
     }
 
-    public String getStatusId() {    PROBLEM
-        return this.status.statusId;
+
+    public String getStatusId() {
+        System.out.println(this.statusId + "right here");
+        return this.statusId = statusId;   //PROBLEM
     }
-    public String getStatus() {
-        return this.status.status;
-    }
+
     public void setStatusObj(String statusId, String status) {
-        this.status = new Status(statusId);
+        this.statusId = statusId;
+        System.out.println(this.statusId + "this is it");
     }
 
     public String getTypeId() {
-        return this.type.typeId;
-    }
-    public String getType() {
-        return this.type.type;
-    }
-    public void setTypeObj(String typeId) {
-        this.type = new Type(typeId);
+        return this.typeId;
     }
 
-    private static class Author {
-        private String userId;
-        private String username;
+    public void setStatusId(String statusId, String status) {
+        this.statusId = statusId;
     }
 
-    private static class Resolver {
-        private String userId;
-        private String username;
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
     }
 
-    private static class Status {   PROBLEM
-        private final String statusId;
-        private final String status;
-
-        private Status(String statusId) {
+    private void StatusId(String statusId) {
             this.statusId = statusId;
 
             switch (statusId) {
                 case "01":
-                    this.status = "pending";
+                    this.statusId = "pending";
                     break;
                 case "02":
-                    this.status = "approved";
+                    this.statusId = "approved";
                     break;
                 case "03":
-                    this.status = "denied";
+                    this.statusId = "denied";
                     break;
                 default:
                     throw new InvalidRequestException("StatusId \"" + statusId + "\" is not valid.");
             }
         }
-    }
-
-    private static class Type {
-        private final String typeId;
-        private final String type;
-
-        private Type(String typeId) {
-            this.typeId = typeId;
-
-            switch (typeId) {
-                case "T":
-                    this.type = "Travel";
-                    break;
-                case "L":
-                    this.type = "Lodging";
-                    break;
-                case "F":
-                    this.type = "Food";
-                    break;
-                case "O":
-                    this.type = "Other";
-                    break;
-                default:
-                    throw new InvalidRequestException("TypeId \"" + typeId + "\" is not valid.");
-            }
-        }
-    }
 }

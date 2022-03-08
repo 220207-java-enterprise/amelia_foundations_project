@@ -35,7 +35,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
             conn.setAutoCommit(false);
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO reimbursement_types VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO reimbursements VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             pstmt.setString(1, newReimbursement.getReimbId());
             pstmt.setFloat(2, newReimbursement.getAmount());
             pstmt.setTimestamp(3, newReimbursement.getSubmitted());
@@ -44,7 +44,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
             pstmt.setString(6, newReimbursement.getPaymentId());
             pstmt.setString(7, newReimbursement.getAuthorId());
             pstmt.setString(8, newReimbursement.getResolverId());
-            pstmt.setString(9, newReimbursement.getStatusId());   PROBLEM
+            pstmt.setString(9, newReimbursement.getStatusId());
             pstmt.setString(10, newReimbursement.getTypeId());
 
             int rowsInserted = pstmt.executeUpdate();
@@ -107,14 +107,13 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
                 newReimbursement.setSubmitted(rs.getTimestamp("submitted"));
                 newReimbursement.setResolved(rs.getTimestamp("resolved"));
                 newReimbursement.setDescription(rs.getString("description"));
-                //newReimbursement.setReceipt(rs.getByte("receipt"));
                 newReimbursement.setPaymentId(rs.getString("payment_id"));
                 newReimbursement.setAuthorId(rs.getString("author_id"));
                 newReimbursement.setResolverId(rs.getString("resolver_id"));
-                newReimbursement.setStatusObj(rs.getString("status_id"), rs.getString("status"));
-                //newReimbursement.setTypeId(rs.getString("type_id"));
-                // fix issue above
+                newReimbursement.setStatusId(rs.getString("status_id"), rs.getString("status"));
+                newReimbursement.setTypeId(rs.getString("type_id"));
             }
+
         } catch (SQLException e) {
             throw new DataSourceException(e);
         }
