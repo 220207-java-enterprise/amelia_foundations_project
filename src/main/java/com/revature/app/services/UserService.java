@@ -25,7 +25,7 @@ public class UserService {
         this.userDAO = userDAO;
     }
 
-    public List<UserResponse> getAllUsers() {
+    public List<UserResponse> getAllUser() {
 
         // Java 8+ mapping logic (with Streams)
         return userDAO.getAll()
@@ -38,7 +38,7 @@ public class UserService {
 
         User newUser = newUserRequest.extractUser();
 
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + newUser);
+        //System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + newUser);
 
         if (!isUserValid(newUser)) {
             throw new InvalidRequestException("Bad registration details given.");
@@ -55,7 +55,7 @@ public class UserService {
         }
 
         newUser.setUserId(UUID.randomUUID().toString());
-        newUser.setRole(new UserRole("1", "ADMIN")); // All newly registered users start as BASIC_USER
+        //newUser.setRole(new UserRole("1", "ADMIN")); // All newly registered users start as BASIC_USER
         newUser.setIsActive(true);
         userDAO.save(newUser);
 
@@ -79,41 +79,32 @@ public class UserService {
         }
 
         return authUser;
-
     }
 
-    boolean isUserValid(User users) {
+    boolean isUserValid(User user) {
 
-        if (users == null) {
+        if (user == null) {
             return false;
         }
 
         // First name and last name are not just empty strings or filled with whitespace
-        if (users.getGivenName().trim().equals("") || users.getSurname().trim().equals("")) {
+        if (user.getGivenName().trim().equals("") || user.getSurname().trim().equals("")) {
             return false;
         }
 
         // Usernames must be a minimum of 8 and a max of 25 characters in length, and only contain alphanumeric characters.
-        if (!isUsernameValid(users.getUsername())) {
+        if (!isUsernameValid(user.getUsername())) {
             return false;
         }
 
         // Passwords require a minimum eight characters, at least one uppercase letter, one lowercase
         // letter, one number and one special character
-        if (!isPasswordValid(users.getPassword())) {
+        if (!isPasswordValid(user.getPassword())) {
             return false;
         }
 
-        /*ArrayList<String> validRoles = new ArrayList<String>();
-        validRoles.add("FINANCE MANAGER");
-        validRoles.add("ADMIN");
-        validRoles.add("EMPLOYEE");
-        if(!(validRoles.contains(users.getRole().getRoleName()))) {
-            return false;
-        }*/
-
         // Basic email validation
-        return isEmailValid(users.getEmail());
+        return isEmailValid(user.getEmail());
 
     }
 

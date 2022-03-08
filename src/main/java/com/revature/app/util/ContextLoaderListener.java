@@ -29,10 +29,9 @@ public class ContextLoaderListener implements ServletContextListener {
         TokenService tokenService = new TokenService(jwtConfig);
 
         UserDAO userDAO = new UserDAO();
-        UserService userService = new UserService(userDAO);
-        ReimbursementDAO reimbursementDAO = new ReimbursementDAO();
 
-        ReimbursementService reimbursementService = new ReimbursementService(reimbursementDAO);
+        UserService userService = new UserService(userDAO);
+        ReimbursementService reimbursementService = new ReimbursementService(new ReimbursementDAO(), userDAO);
 
         UserServlet userServlet = new UserServlet(tokenService, userService, mapper);
         AuthServlet authServlet = new AuthServlet(tokenService, userService, mapper);
@@ -40,15 +39,16 @@ public class ContextLoaderListener implements ServletContextListener {
 
         // Programmatic Servlet Registration
         ServletContext context = sce.getServletContext();
-        context.addServlet("UserServlet", userServlet).addMapping("/user/*");
+        context.addServlet("UserServlet", userServlet).addMapping("/users/*");
         context.addServlet("AuthServlet", authServlet).addMapping("/auth");
-        context.addServlet("ReimbursementServlet", reimbursementServlet).addMapping("/reimbursement");
-
+        context.addServlet("ReimbursementServlet", reimbursementServlet).addMapping("/reimbursements/*");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         logger.debug("Shutting down ERS app web application");
+        UserDAO userDAO = new UserDAO();
+        UserService userService = new UserService(userDAO);
     }
 
 }

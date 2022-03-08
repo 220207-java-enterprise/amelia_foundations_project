@@ -3,9 +3,9 @@ package com.revature.app.servlets;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.app.dtos.requests.NewUserRequest;
+import com.revature.app.dtos.responses.ReimbursementResponse;
 import com.revature.app.dtos.responses.UserResponse;
 import com.revature.app.dtos.responses.Principal;
-import com.revature.app.dtos.responses.ResourceCreationResponse;
 import com.revature.app.models.User;
 import com.revature.app.services.TokenService;
 import com.revature.app.services.UserService;
@@ -74,7 +74,7 @@ public class UserServlet extends HttpServlet {
             return;
         }
 
-        List<UserResponse> users = userService.getAllUsers();
+        List<UserResponse> users = userService.getAllUser();
         String payload = mapper.writeValueAsString(users);
         resp.setContentType("application/json");
         resp.getWriter().write(payload);
@@ -92,11 +92,11 @@ public class UserServlet extends HttpServlet {
         try {
 
             NewUserRequest newUserRequest = mapper.readValue(req.getInputStream(), NewUserRequest.class);
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>" + newUserRequest);
+            //System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>" + newUserRequest);
             User newUser = userService.register(newUserRequest);
             resp.setStatus(201); // CREATED
             resp.setContentType("application/json");
-            String payload = mapper.writeValueAsString(new ResourceCreationResponse(newUser.getUserId()));
+            String payload = mapper.writeValueAsString(new ReimbursementResponse(newUser.getUserId()));
             respWriter.write(payload);
 
         } catch (InvalidRequestException | DatabindException e) {

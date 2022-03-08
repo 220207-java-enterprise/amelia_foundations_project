@@ -1,198 +1,185 @@
 package com.revature.app.models;
-//import java SQL timestamp and superclass Objects
-import java.sql.Timestamp;
-import java.util.Objects;
+import com.revature.app.util.exceptions.InvalidRequestException;
 
-// create User class and encapsulating Reimbursement states
+import java.sql.Timestamp;
+
 public class Reimbursement {
     private String reimbId;
-    private double amount;
+    private Float amount;
     private Timestamp submitted;
     private Timestamp resolved;
     private String description;
-    private byte receipt;
     private String paymentId;
-    private String authorId;
-    private String resolverId;
-    private String statusId;
-    private String status;
-    private String typeId;
-    private String type;
+    private final Author author = new Author();
+    private final Resolver resolver = new Resolver();
+    private Status status;
+    private Type type;
 
     public Reimbursement() {
         super();
     }
-    //creating constructor for parameters
-    public Reimbursement(String reimbId, double amount, Timestamp submitted, Timestamp resolved, String description, Byte receipt, String paymentId, String authorId, String resolverId, String statusId, String status, String typeId, String type) {
-        this.reimbId = reimbId;
+
+    public Reimbursement(
+            Float amount,
+            String description,
+            String typeId
+    ) {
         this.amount = amount;
-        this.submitted = submitted;
-        this.resolved = resolved;
         this.description = description;
-        this.receipt = receipt;
-        this.paymentId = paymentId;
-        this.authorId = authorId;
-        this.resolverId = resolverId;
-        this.statusId = statusId;
-        this.status = status;
-        this.type = typeId;
-        this.typeId = type;
+        this.type = new Type(typeId);
+   //">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+        // generate id
+        /*this.reimbId = UUID.randomUUID().toString();
+        // set status to approved
+        this.status = new Status("pending");*/
     }
 
-    public Reimbursement(double amount, String description, byte receipt, String authorId, String typeId) {
-    }
-
-    //getters and setters for encapsulated data
     public String getReimbId() {
-        return reimbId;
+        return this.reimbId;
     }
-
     public void setReimbId(String reimbId) {
         this.reimbId = reimbId;
     }
 
-    public double getAmount() {
-        return amount;
+    public Float getAmount() {
+        return this.amount;
     }
-
-    public void setAmount(int amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 
     public Timestamp getSubmitted() {
-        return submitted;
+        return this.submitted;
     }
-
     public void setSubmitted(Timestamp submitted) {
         this.submitted = submitted;
     }
 
     public Timestamp getResolved() {
-        return resolved;
+        return this.resolved;
     }
-
     public void setResolved(Timestamp resolved) {
         this.resolved = resolved;
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public byte getReceipt() {
-        return receipt;
-    }
-
-    public void setReceipt(byte receipt) {
-        this.receipt = receipt;
-    }
-
     public String getPaymentId() {
-        return paymentId;
+        return this.paymentId;
     }
-
     public void setPaymentId(String paymentId) {
         this.paymentId = paymentId;
     }
 
     public String getAuthorId() {
-        return authorId;
+        return this.author.userId;
+    }
+    public void setAuthorId(String userId) {
+        this.author.userId = userId;
     }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
+    public String getAuthor() {
+        return this.author.username;
+    }
+    public void setAuthor (String username) {
+        this.author.username = username;
     }
 
     public String getResolverId() {
-        return resolverId;
+        return this.resolver.userId;
+    }
+    public void setResolverId(String userId) {
+        this.resolver.userId = userId;
     }
 
-    public void setResolverId(String resolverId) {
-        this.resolverId = resolverId;
+    public String getResolver() {
+        return this.resolver.username;
+    }
+    public void setResolver(String username) {
+        this.resolver.username = username;
     }
 
-    public String getStatusId() {
-        return statusId;
+    public String getStatusId() {    PROBLEM
+        return this.status.statusId;
     }
-
-    public void setStatusId(String statusId, String status) {
-        this.statusId = statusId;
+    public String getStatus() {
+        return this.status.status;
+    }
+    public void setStatusObj(String statusId, String status) {
+        this.status = new Status(statusId);
     }
 
     public String getTypeId() {
-        return typeId;
+        return this.type.typeId;
     }
-
-    public void setTypeId(String typeId) {
-        this.typeId = typeId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getType() {
-        return type;
+        return this.type.type;
+    }
+    public void setTypeObj(String typeId) {
+        this.type = new Type(typeId);
     }
 
-    public void setType(String type) {
-        this.type = type;
+    private static class Author {
+        private String userId;
+        private String username;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Reimbursement reimbursement = (Reimbursement) o;
-        return Double.compare(reimbursement.amount, amount) == 0
-                            && receipt == reimbursement.receipt
-                            && Objects.equals(reimbId, reimbursement.reimbId)
-                            && Objects.equals(submitted, reimbursement.submitted)
-                            && Objects.equals(resolved, reimbursement.resolved)
-                            && Objects.equals(description, reimbursement.description)
-                            && Objects.equals(paymentId, reimbursement.paymentId)
-                            && Objects.equals(authorId, reimbursement.authorId)
-                            && Objects.equals(resolverId, reimbursement.resolverId)
-                            && Objects.equals(statusId, reimbursement.statusId)
-                            && Objects.equals(status, reimbursement.status)
-                            && Objects.equals(typeId, reimbursement.typeId)
-                            && Objects.equals(type, reimbursement.type);
+    private static class Resolver {
+        private String userId;
+        private String username;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(reimbId, amount, submitted, resolved, description, receipt, paymentId, authorId, resolverId, statusId, status, typeId, type);
+    private static class Status {   PROBLEM
+        private final String statusId;
+        private final String status;
+
+        private Status(String statusId) {
+            this.statusId = statusId;
+
+            switch (statusId) {
+                case "01":
+                    this.status = "pending";
+                    break;
+                case "02":
+                    this.status = "approved";
+                    break;
+                case "03":
+                    this.status = "denied";
+                    break;
+                default:
+                    throw new InvalidRequestException("StatusId \"" + statusId + "\" is not valid.");
+            }
+        }
     }
 
-    @Override
-    public String toString() {
-        return "Reimbursement{" +
-                "reimb_id='" + reimbId + '\'' +
-                ", amount='" + amount + '\'' +
-                ", submitted='" + submitted + '\'' +
-                ", resolved='" + resolved + '\'' +
-                ", description='" + description + '\'' +
-                ", receipt='" + receipt + '\'' +
-                ", payment_id='" + paymentId + '\'' +
-                ", author_id='" + authorId + '\'' +
-                ", resolver_id='" + resolverId + '\'' +
-                ", status_id='" + statusId + '\'' +
-                ", status='" + status + '\'' +
-                ", type_id='" + typeId + '\'' +
-                ", type='" + type + '\'' +'}';
-    }
+    private static class Type {
+        private final String typeId;
+        private final String type;
 
-    public void setStatusId(ReimbursementStatuses reimbursementStatuses) {
-    }
+        private Type(String typeId) {
+            this.typeId = typeId;
 
-    public void setStatus(ReimbursementStatuses newReimbursementStatus) {
+            switch (typeId) {
+                case "T":
+                    this.type = "Travel";
+                    break;
+                case "L":
+                    this.type = "Lodging";
+                    break;
+                case "F":
+                    this.type = "Food";
+                    break;
+                case "O":
+                    this.type = "Other";
+                    break;
+                default:
+                    throw new InvalidRequestException("TypeId \"" + typeId + "\" is not valid.");
+            }
+        }
     }
 }
