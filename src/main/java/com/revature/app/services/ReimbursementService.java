@@ -2,7 +2,6 @@ package com.revature.app.services;
 
 import com.revature.app.daos.ReimbursementDAO;
 import com.revature.app.daos.UserDAO;
-import com.revature.app.dtos.responses.Principal;
 import com.revature.app.dtos.responses.ReimbursementResponse;
 import com.revature.app.models.Reimbursement;
 import com.revature.app.dtos.requests.ReimbursementRequest;
@@ -28,7 +27,7 @@ public class ReimbursementService {
         newReimbursement.setReimbId(UUID.randomUUID().toString());
         newReimbursement.setSubmitted(Timestamp.valueOf(LocalDateTime.now()));
         newReimbursement.setStatusId("01");
-        reimbursementDAO.save(newReimbursement);   //PROBLEM
+        reimbursementDAO.save(newReimbursement);
     }
 
     public List<ReimbursementResponse> getAll() {

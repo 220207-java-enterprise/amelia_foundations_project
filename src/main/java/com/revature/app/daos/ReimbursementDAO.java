@@ -57,6 +57,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
 
         } catch (SQLException e) {
             throw new DataSourceException(e);
+
         }
     }
 
@@ -82,21 +83,20 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
                 newReimbursement.setAuthorId(rs.getString("author_id"));
                 newReimbursement.setResolverId(rs.getString("resolver_id"));
                 newReimbursement.setStatusId(rs.getString("status_id"));
-                //newReimbursement.setTypeId(rs.getString("type_id"));
+                newReimbursement.setTypeId(rs.getString("type_id"));
             }
 
         } catch (SQLException e) {
             throw new DataSourceException(e);
         }
-
         return newReimbursement;
     }
 
     @Override
     public List<Reimbursement> getAll() {
 
-        List<Reimbursement> reimbursement = new ArrayList<>();
-
+        List<Reimbursement> allReimbursements = new ArrayList<>();
+        Reimbursement newReimbursement = null;
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
             ResultSet rs = conn.createStatement().executeQuery(rootSelect);
@@ -118,7 +118,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
             throw new DataSourceException(e);
         }
 
-        return reimbursement;
+        return allReimbursements;
     }
 
     @Override
@@ -139,7 +139,7 @@ public class ReimbursementDAO implements CrudDAO<Reimbursement> {
                     "type_id = ? " +
                     "WHERE user_id = ?");
             pstmt.setString(1, updatedReimbursement.getReimbId());
-            pstmt.setFloat(2, (float) updatedReimbursement.getAmount());
+            pstmt.setFloat(2, updatedReimbursement.getAmount());
             pstmt.setTimestamp(3, updatedReimbursement.getSubmitted());
             pstmt.setTimestamp(4, updatedReimbursement.getResolved());
             pstmt.setString(5, updatedReimbursement.getDescription());

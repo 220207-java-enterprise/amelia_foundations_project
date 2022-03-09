@@ -11,7 +11,7 @@ public class UserResponse {
     private String role;
 
 
-    public UserResponse() {
+    public UserResponse(String userId) {
         super();
     }
 

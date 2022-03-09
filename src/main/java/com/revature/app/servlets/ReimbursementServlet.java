@@ -72,14 +72,15 @@ public class ReimbursementServlet extends HttpServlet {
         try {
 
             Principal requester = tokenService.extractRequesterDetails(req.getHeader("Authorization"));
+
             if (requester.getRole().equals("EMPLOYEE")) {
                 ReimbursementRequest reimbursementRequest = mapper.readValue(req.getInputStream(), ReimbursementRequest.class);
                 reimbursementRequest.setAuthorId(requester.getId());
-                reimbursementService.request(reimbursementRequest);  //PROBLEM
+                reimbursementService.request(reimbursementRequest);
                 String payload = mapper.writeValueAsString(reimbursementRequest);
                 resp.setContentType("application/json");
                 writer.write(payload);
-
+                System.out.println(payload);
             } else {
                 resp.setStatus(403); // FORBIDDEN
                 return;

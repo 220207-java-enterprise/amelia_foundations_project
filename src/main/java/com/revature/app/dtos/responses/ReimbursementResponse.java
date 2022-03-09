@@ -4,7 +4,7 @@ import com.revature.app.models.Reimbursement;
 
 import java.sql.Timestamp;
 
-public class ReimbursementResponse {
+public class ReimbursementResponse extends Reimbursement {
     private String reimbId;
     private Float amount;
     private Timestamp submitted;
@@ -31,6 +31,7 @@ public class ReimbursementResponse {
     }
 
     public ReimbursementResponse(String newUser) {
+        //return;
     }
 
     public String getReimbId() {
@@ -60,15 +61,15 @@ public class ReimbursementResponse {
     @Override
     public String toString() {
         return "ReimbursementResponse{" +
-                "reimbId='" + reimbId + '\'' +
+                "reimb_id='" + reimbId + '\'' +
                 ", amount=" + amount +
                 ", submitted=" + submitted +
                 ", resolved=" + resolved +
                 ", description='" + description + '\'' +
-                ", paymentId='" + paymentId + '\'' +
-                ", resolverId='" + resolverId + '\'' +
-                ", statusId='" + statusId + '\'' +
-                ", typeId='" + typeId + '\'' +
+                ", payment_id='" + paymentId + '\'' +
+                ", resolver_id='" + resolverId + '\'' +
+                ", status_id='" + statusId + '\'' +
+                ", type_id='" + typeId + '\'' +
                 '}';
     }
 }

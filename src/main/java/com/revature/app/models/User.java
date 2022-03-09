@@ -118,9 +118,9 @@ public class User {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", givenName='" + givenName + '\'' +
+                ", given_name='" + givenName + '\'' +
                 ", surname='" + surname + '\'' +
-                //", role='" + role + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 
