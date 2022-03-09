@@ -31,6 +31,7 @@ public class Reimbursement {
         //this.resolverId = resolverId;
         //this.statusId = statusId;
         this.typeId = typeId;
+
     }
 
     public String getReimbId() {
@@ -103,8 +104,8 @@ public class Reimbursement {
         this.typeId = typeId;
     }
 
-    private void StatusId(String statusId) {
-            this.statusId = statusId;
+    public void Status (String statusId) {
+            statusId = "01";
 
             switch (statusId) {
                 case "01":
@@ -117,7 +118,7 @@ public class Reimbursement {
                     this.statusId = "denied";
                     break;
                 default:
-                    throw new InvalidRequestException("Status_id \"" + statusId + "\" is not valid.");
+                    throw new InvalidRequestException("status_id \"" + statusId + "\" is not valid.");
             }
         }
 }

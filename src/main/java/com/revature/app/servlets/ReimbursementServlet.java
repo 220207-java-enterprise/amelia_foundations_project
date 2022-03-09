@@ -111,9 +111,13 @@ public class ReimbursementServlet extends HttpServlet {
 
             if (principal == null) {
                 resp.setStatus(401);
+                return;
+
             } else if (!principal.getRole().equals("FINANCE MANAGER")) {
                 resp.setStatus(403);
+                return;
             }
+
         }
     }
 }

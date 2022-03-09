@@ -59,6 +59,11 @@ public class ReimbursementResponse extends Reimbursement {
     }
 
     @Override
+    public void Status(String statusId) {
+        super.Status(statusId);
+    }
+
+    @Override
     public String toString() {
         return "ReimbursementResponse{" +
                 "reimb_id='" + reimbId + '\'' +
